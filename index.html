@@ -589,6 +589,8 @@
         grid-template-columns: minmax(0, 1fr);
       }
     }
+    /* SPA tabs helper */
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
@@ -1055,5 +1057,49 @@
     </div>
   </footer>
 </div>
+  <script>
+    (function() {
+      const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+      const sectionIds = navLinks.map(a => a.getAttribute('href').slice(1)).filter(Boolean);
+      const sections = new Map(sectionIds.map(id => [id, document.getElementById(id)]));
+
+      function activate(id) {
+        const target = (id || location.hash.slice(1) || 'home');
+        sections.forEach((el, key) => {
+          if (!el) return;
+          if (key === target) el.classList.remove('hidden');
+          else el.classList.add('hidden');
+        });
+        navLinks.forEach(a => {
+          const match = a.getAttribute('href').slice(1) === target;
+          if (match) {
+            a.classList.add('nav-highlight');
+            a.setAttribute('aria-current','page');
+          } else {
+            a.classList.remove('nav-highlight');
+            a.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      navLinks.forEach(a => {
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          const id = a.getAttribute('href').slice(1);
+          if (location.hash.slice(1) !== id) {
+            location.hash = id; // triggers hashchange
+          } else {
+            activate(id);
+          }
+          window.scrollTo({ top: 0, behavior: 'auto' });
+        });
+      });
+
+      window.addEventListener('hashchange', () => activate());
+
+      // Initial activation
+      activate();
+    })();
+  </script>
 </body>
 </html>
