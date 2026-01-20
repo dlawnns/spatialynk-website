@@ -136,8 +136,8 @@
     /* Hero */
     .hero {
       max-width: var(--max-width);
-      margin: 1.8rem auto 1.5rem;
-      padding: 1.5rem 1.2rem 0;
+      margin: 1.4rem auto 0rem;
+      padding: 1.5rem 1.2rem 0.6rem;
       display: grid;
       grid-template-columns: minmax(0, 3fr) minmax(260px, 2.5fr);
       gap: 2rem;
@@ -336,6 +336,8 @@
     /* Sections */
     main {
       flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     section {
@@ -592,6 +594,62 @@
     /* SPA tabs helper */
     .hidden { display: none !important; }
 
+    /* Section visual order */
+    #home { order: 1; }
+    #marketing { order: 2; }
+    #about { order: 3; }
+    #system { order: 4; }
+    #team { order: 5; }
+    #admin { order: 6; }
+    #admin-diaries { order: 7; }
+
+    /* Hero stats strip */
+    .hero-stats {
+      margin-top: 0.9rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.6rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.6rem 0.7rem;
+      box-shadow: var(--shadow-light);
+      display: flex; align-items: center; gap: 0.45rem;
+      font-size: 0.86rem; color: #111827;
+    }
+    .stat-num { font-weight: 700; color: var(--primary); font-variant-numeric: tabular-nums; }
+
+    /* About grid */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+    @media (max-width: 880px) { .about-grid { grid-template-columns: minmax(0,1fr); } }
+    .li-icon { width: 14px; height: 14px; margin-right: 6px; vertical-align: -2px; fill: currentColor; color: var(--primary); }
+
+    /* Team avatars */
+    .team-card-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem; }
+    .avatar { width: 36px; height: 36px; border-radius: 999px; background: linear-gradient(135deg,#e0e7ff,#c7d2fe); color:#1e293b; display:flex; align-items:center; justify-content:center; font-weight:700; box-shadow: 0 1px 0 rgba(2,6,23,0.08) inset, 0 6px 12px rgba(2,6,23,0.06); }
+    .team-name { margin: 0; }
+    .team-card p { margin-top: 0.25rem; }
+
+    /* Collapsible details */
+    details { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-alt); padding: 0.55rem 0.7rem; margin-bottom: 0.5rem; }
+    summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.5rem; }
+    summary::-webkit-details-marker { display: none; }
+    .summary-title { font-weight: 600; color: #111827; }
+
+    /* Admin-specific helpers */
+    .gantt-card img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); display: block; }
+    .tab-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.35rem 0 0.6rem; }
+    .pill-tab { padding: 0.25rem 0.6rem; border-radius: 999px; border: 1px solid var(--border); background: #fff; color: #374151; cursor: pointer; font-size: 0.84rem; }
+    .pill-tab.active { background: var(--primary-soft); color: #1d4ed8; border-color: rgba(59,130,246,0.35); }
+    .admin-grid .gantt-card,
+    .admin-grid .minutes-card { grid-column: 1 / -1; }
+
     /* Section bands for marketing flow */
     .band { position: relative; }
     .band::before {
@@ -619,6 +677,10 @@
     .band--dark .feature-card { background: rgba(255,255,255,0.04); border-color: rgba(148,163,184,0.25); }
     .band--dark .badge-soft { background: rgba(148, 163, 184, 0.18); color: #e5e7eb; }
     .band--dark .badge-soft span { color: #fff; }
+    .seamless-top { padding-top: 0.4rem; margin-top: 0; }
+
+    /* Small icons for visual cues */
+    .icon { width: 16px; height: 16px; margin-right: 6px; vertical-align: -2px; fill: currentColor; color: var(--primary); }
 
     /* Card polish */
     .card { transition: transform 180ms ease, box-shadow 180ms ease; will-change: transform; }
@@ -639,11 +701,10 @@
       </div>
       <div class="nav-links">
         <a href="#home">Home</a>
-        <a href="#project-intro">Project</a>
-        <a href="#team">Team</a>
-        <a href="#admin">Admin Updates</a>
+        <a href="#about">About</a>
         <a href="#system">System</a>
-        <a href="#marketing" class="nav-highlight">Marketing</a>
+        <a href="#admin">Admin</a>
+        <a href="#admin-diaries">Diaries</a>
       </div>
     </nav>
   </header>
@@ -676,6 +737,13 @@
           <span>Group FYP-25-S4-08</span>
           <span>Supervisor: Mr&nbsp;Tian&nbsp;Sion&nbsp;Hui</span>
           <span>Assessor: Mr&nbsp;Sionggo&nbsp;Japit</span>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-card"><span class="stat-num">3</span> Data Types</div>
+          <div class="stat-card"><span class="stat-num">2</span> Model Families</div>
+          <div class="stat-card"><span class="stat-num">3</span> Map Levels</div>
+          <div class="stat-card"><span class="stat-num">5</span> User Roles</div>
         </div>
       </div>
 
@@ -710,29 +778,76 @@
       </aside>
     </section>
 
-    <!-- PROJECT INTRODUCTION -->
-    <section id="project-intro" class="band band--alt">
+    <!-- ADMIN DIARIES -->
+    <section id="admin-diaries" class="band band--alt hidden">
       <div class="section-header">
-        <h2 class="section-title">Project Introduction</h2>
-        <p class="section-tagline">Background, problem statement, and objectives</p>
+        <h2 class="section-title">Reflective Diaries</h2>
+        <p class="section-tagline">Weekly reflections by team member</p>
       </div>
 
       <div class="card">
-        <h3 class="card-title">Background & Problem Statement</h3>
-        <p>
-          Modern digital platforms depend heavily on recommendation systems to guide users toward relevant content,
-          from restaurants to attractions and services. However, many existing systems do not combine
-          <strong>spatial</strong> information (where things are) and <strong>textual</strong> information
-          (descriptions, categories, reviews) in a rich and explainable way.
-        </p>
-        <p>
-          As a result, users often receive recommendations that are not context-aware or cannot be clearly justified.
-          This reduces trust and makes it harder for users to understand why certain places are shown to them.
-        </p>
-        <p>
-          <strong>SpatiaLynk</strong> addresses this by providing a multi-level, spatial-textual, and explainable
-          recommendation system that can adapt to different map levels and provide clear reasons for each suggestion.
-        </p>
+        <div class="tab-row">
+          <a href="#" class="pill-tab" data-member-tab="han">Han Seoyoun</a>
+          <a href="#" class="pill-tab" data-member-tab="nevin">Nevin Sim</a>
+          <a href="#" class="pill-tab" data-member-tab="brian">Yue Jun Brian Tan</a>
+          <a href="#" class="pill-tab" data-member-tab="jiahui">Zhang Jiahui</a>
+          <a href="#" class="pill-tab" data-member-tab="dillon">Tan Jun Rong, Dillon</a>
+        </div>
+
+        <div class="diary-panels">
+          <div class="diary-panel" data-member-panel="han">
+            <h3 class="card-title">Han Seoyoun — Reflections</h3>
+            <p>
+              Focused on aligning architecture with real-time streaming and explainability goals. Biggest challenge
+              was scoping features to deliver a cohesive MVP.
+            </p>
+          </div>
+          <div class="diary-panel hidden" data-member-panel="nevin">
+            <h3 class="card-title">Nevin Sim — Reflections</h3>
+            <p>
+              Streamlined front-end components and documentation. Iterated on interface copy to make features
+              clearer and reduce friction for first-time users.
+            </p>
+          </div>
+          <div class="diary-panel hidden" data-member-panel="brian">
+            <h3 class="card-title">Yue Jun Brian Tan — Reflections</h3>
+            <p>
+              Improved data ingestion and training workflow. Worked on model features that balance textual and
+              spatial signals for better personalisation.
+            </p>
+          </div>
+          <div class="diary-panel hidden" data-member-panel="jiahui">
+            <h3 class="card-title">Zhang Jiahui — Reflections</h3>
+            <p>
+              Prepared datasets and validated data quality. Supported backend integration and wrote notes on
+              system behaviour across modules.
+            </p>
+          </div>
+          <div class="diary-panel hidden" data-member-panel="dillon">
+            <h3 class="card-title">Tan Jun Rong, Dillon — Reflections</h3>
+            <p>
+              Produced system design diagrams and test scenarios. Helped ensure data consistency and reviewed
+              flows to tighten the overall user experience.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section id="about" class="band band--alt">
+      <div class="section-header">
+        <h2 class="section-title">About Us</h2>
+        <p class="section-tagline">Problems with modern platforms and our objectives</p>
+      </div>
+      <div class="about-grid">
+      <div class="card">
+        <h3 class="card-title">Problems We See</h3>
+        <ul>
+          <li><svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M12 3v18"/></svg><strong>Fragmented signals:</strong> Platforms treat spatial vs textual signals separately.</li>
+          <li><svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg><strong>Low explainability:</strong> Users don’t know why places are recommended.</li>
+          <li><svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h12M3 17h6"/></svg><strong>One-size-fits-all:</strong> Results ignore map level and user intent.</li>
+        </ul>
       </div>
 
       <div class="card">
@@ -746,12 +861,13 @@
           <li>Evaluate the system’s functional, non-functional, and ML performance, including cold-start and explanation fidelity.</li>
         </ul>
       </div>
+      </div>
     </section>
 
-    <!-- TEAM -->
+    <!-- TEAM (part of About) -->
     <section id="team" class="band">
       <div class="section-header">
-        <h2 class="section-title">Project Team</h2>
+        <h2 class="section-title">Our Team</h2>
         <p class="section-tagline">Members, roles, and responsibilities</p>
       </div>
 
@@ -764,10 +880,7 @@
             Monitors project progress and delegates tasks. Designs and implements backend components.
             Creates intuitive and user-friendly interfaces to support optimal user experience.
           </p>
-          <div class="team-contact">
-            Phone: 88911623<br />
-            Email: <a href="mailto:han024@mymail.sim.edu.sg">han024@mymail.sim.edu.sg</a>
-          </div>
+          
         </div>
 
         <div class="team-card">
@@ -778,10 +891,7 @@
             Manages project documentation. Designs and implements front-end components.
             Ensures the system meets requirements and business goals through analysis and testing.
           </p>
-          <div class="team-contact">
-            Phone: 97340788<br />
-            Email: <a href="mailto:nsjsim001@mymail.sim.edu.sg">nsjsim001@mymail.sim.edu.sg</a>
-          </div>
+          
         </div>
 
         <div class="team-card">
@@ -792,10 +902,7 @@
             Handles data acquisition, preparation, and model training. Builds and moderates web components,
             and supports transforming the product into a viable business solution.
           </p>
-          <div class="team-contact">
-            Phone: 90256712<br />
-            Email: <a href="mailto:yjbtan001@mymail.sim.edu.sg">yjbtan001@mymail.sim.edu.sg</a>
-          </div>
+          
         </div>
 
         <div class="team-card">
@@ -806,10 +913,7 @@
             Prepares and manages project datasets. Supports backend and application development and contributes to
             system documentation across modules.
           </p>
-          <div class="team-contact">
-            Phone: 85938459<br />
-            Email: <a href="mailto:jzhang111@mymail.sim.edu.sg">jzhang111@mymail.sim.edu.sg</a>
-          </div>
+          
         </div>
 
         <div class="team-card">
@@ -820,10 +924,7 @@
             Creates system design diagrams. Supports backend development and testing. Handles data processing,
             ensures data consistency, and maintains project documentation.
           </p>
-          <div class="team-contact">
-            Phone: 88169169<br />
-            Email: <a href="mailto:jrdtan004@mymail.sim.edu.sg">jrdtan004@mymail.sim.edu.sg</a>
-          </div>
+          
         </div>
       </div>
     </section>
@@ -832,12 +933,17 @@
     <section id="admin" class="band band--alt">
       <div class="section-header">
         <h2 class="section-title">Administrative Updates</h2>
-        <p class="section-tagline">Meeting minutes, schedule, and reflective diaries</p>
+        <p class="section-tagline">Gantt chart and meeting minutes</p>
       </div>
 
       <!-- NOTE TO TEAM: Replace placeholder items below with your actual content regularly. -->
       <div class="admin-grid">
-        <div class="card">
+        <div class="card gantt-card">
+          <h3 class="card-title">Project Schedule / Gantt Chart</h3>
+          <p class="card-subtitle">Overview of planned milestones and current progress.</p>
+          <img alt="Gantt chart" src="assets/gantt.png" onerror="this.onerror=null;this.src='assets/gantt.svg'">
+        </div>
+        <div class="card minutes-card">
           <h3 class="card-title">Project Meeting Minutes</h3>
           <p class="card-subtitle">
             This section is used for regular updates of team meeting minutes. Replace the sample entries with your real minutes.
@@ -961,7 +1067,7 @@
     </section>
 
     <!-- MARKETING / USP -->
-    <section id="marketing" class="band band--dark">
+    <section id="marketing" class="band band--alt seamless-top">
       <div class="section-header">
         <h2 class="section-title">System Marketing & Value Proposition</h2>
         <p class="section-tagline">Unique selling points, features, and user benefits</p>
@@ -1000,7 +1106,7 @@
       <div class="feature-grid">
         <div class="feature-card">
           <div class="feature-tag">Key Feature</div>
-          <div class="feature-title">Multi-Level Recommendations</div>
+          <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a6 6 0 00-6 6c0 4.5 6 12 6 12s6-7.5 6-12a6 6 0 00-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z"/></svg>Multi-Level Recommendations</div>
           <p>
             The system can recommend at different spatial levels. When users zoom out, they see recommended districts or regions. When they zoom in, the system refines recommendations to specific POIs.
           </p>
@@ -1008,7 +1114,7 @@
 
         <div class="feature-card">
           <div class="feature-tag">Key Feature</div>
-          <div class="feature-title">Explainable Recommendations</div>
+          <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.5 5 5 2.5-5 2.5L12 17l-2.5-5L4 9.5 9.5 7 12 2z"/></svg>Explainable Recommendations</div>
           <p>
             For each recommended POI, SpatiaLynk generates a short explanation based on graph paths and user preferences.
             This increases trust and helps users understand why the system suggested a place.
@@ -1017,7 +1123,7 @@
 
         <div class="feature-card">
           <div class="feature-tag">Key Feature</div>
-          <div class="feature-title">Personalised Ranking</div>
+          <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20h3V10H5v10zm5 0h3V6h-3v14zm5 0h3V13h-3v7z"/></svg>Personalised Ranking</div>
           <p>
             Candidate POIs are first generated using embeddings and graph models, then ranked by an XGBoost model using
             features such as distance, popularity, user interests, and past interactions.
@@ -1026,7 +1132,7 @@
 
         <div class="feature-card">
           <div class="feature-tag">Premium Feature</div>
-          <div class="feature-title">Itinerary & Saved Collections</div>
+          <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a2 2 0 012 2v18l-8-4-8 4V4a2 2 0 012-2z"/></svg>Itinerary & Saved Collections</div>
           <p>
             Premium users can generate day itineraries and save recommended POIs into custom folders (e.g. “Weekend
             Hangouts”, “Study Spots”), improving planning efficiency.
@@ -1079,6 +1185,17 @@
         </ul>
       </div>
     </section>
+    <!-- ADMIN DIARIES (dynamic from CSV) -->
+    <section id="admin-diaries" class="band band--alt hidden">
+      <div class="section-header">
+        <h2 class="section-title">Reflective Diaries</h2>
+        <p class="section-tagline">Weekly reflections by team member</p>
+      </div>
+      <div class="card">
+        <div class="tab-row" id="diary-tabs"></div>
+        <div class="diary-panels" id="diary-panels"></div>
+      </div>
+    </section>
   </main>
 
   <!-- FOOTER -->
@@ -1092,18 +1209,41 @@
   <script>
     (function() {
       const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
-      const sectionIds = navLinks.map(a => a.getAttribute('href').slice(1)).filter(Boolean);
+      const sectionIds = ['home','about','team','system','admin','admin-diaries','marketing'];
       const sections = new Map(sectionIds.map(id => [id, document.getElementById(id)]));
 
       function activate(id) {
         const target = (id || location.hash.slice(1) || 'home');
+        const normalized = (target === 'marketing')
+          ? 'home'
+          : (target === 'project-intro' || target === 'team' || target === 'about')
+            ? 'about'
+            : target;
+        const group = normalized === 'home' ? new Set(['home','marketing'])
+                     : normalized === 'about' ? new Set(['about','team'])
+                     : new Set([normalized]);
         sections.forEach((el, key) => {
           if (!el) return;
-          if (key === target) el.classList.remove('hidden');
+          if (group.has(key)) el.classList.remove('hidden');
           else el.classList.add('hidden');
         });
+        // Cleanup Admin: show only Gantt image + Meeting Minutes
+        if (normalized === 'admin') {
+          const admin = sections.get('admin');
+          if (admin) {
+            admin.querySelectorAll('.card').forEach(card => {
+              const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+              const isGanttImage = card.classList.contains('gantt-card');
+              const isMinutes = title.includes('meeting minutes');
+              const isDiaries = title.includes('reflective diaries');
+              const isGanttText = title.includes('project schedule') && !isGanttImage;
+              if (isDiaries || isGanttText) card.classList.add('hidden');
+              if (isGanttImage || isMinutes) card.classList.remove('hidden');
+            });
+          }
+        }
         navLinks.forEach(a => {
-          const match = a.getAttribute('href').slice(1) === target;
+          const match = a.getAttribute('href').slice(1) === normalized;
           if (match) {
             a.classList.add('nav-highlight');
             a.setAttribute('aria-current','page');
@@ -1129,8 +1269,101 @@
 
       window.addEventListener('hashchange', () => activate());
 
-      // Initial activation
+      // CSV helpers
+      function parseCSV(text) {
+        const lines = text.replace(/\r\n?/g,'\n').split('\n').filter(l=>l.trim().length);
+        const headers = lines[0].split(',').map(h=>h.trim());
+        return lines.slice(1).map(line=>{
+          const cols = [];
+          let cur = '', inQ = false;
+          for (let i=0;i<line.length;i++){
+            const ch=line[i];
+            if(ch==='"'){
+              if(inQ && line[i+1]==='"'){ cur+='"'; i++; }
+              else inQ=!inQ;
+            } else if(ch===',' && !inQ){ cols.push(cur); cur=''; }
+            else { cur+=ch; }
+          }
+          cols.push(cur);
+          const obj={}; headers.forEach((h,idx)=>obj[h]= (cols[idx]||'').trim());
+          return obj;
+        });
+      }
+
+      async function fetchCSV(url){
+        try{ const res = await fetch(url, {cache:'no-store'}); if(!res.ok) throw new Error(res.statusText); return parseCSV(await res.text()); }
+        catch(e){ console.warn('CSV load failed', url, e); return null; }
+      }
+
+      function renderMinutes(rows){
+        if(!rows) return;
+        const admin = sections.get('admin');
+        if(!admin) return;
+        const list = admin.querySelector('.card .admin-list');
+        if(!list) return;
+        list.innerHTML='';
+        rows.forEach(r=>{
+          const item=document.createElement('div'); item.className='admin-item';
+          const badge=document.createElement('div'); badge.className='badge-soft';
+          const code=document.createElement('span'); code.textContent=r.id||''; badge.appendChild(code);
+          badge.appendChild(document.createTextNode(' — ' + (r.title||'')));
+          item.appendChild(badge);
+          const p1=document.createElement('p'); p1.innerHTML = `<strong>Date:</strong> ${r.date||''} &nbsp; | &nbsp; <strong>Attendees:</strong> ${(r.attendees||'')}`; item.appendChild(p1);
+          if(r.summary){ const p2=document.createElement('p'); p2.innerHTML = `<strong>Summary:</strong> ${r.summary}`; item.appendChild(p2); }
+          if(r.actions){ const p3=document.createElement('p'); p3.innerHTML = `<strong>Action Items:</strong> ${(r.actions||'')}`; item.appendChild(p3); }
+          list.appendChild(item);
+        });
+      }
+
+      function renderDiaries(rows){
+        if(!rows) return;
+        const container = document.getElementById('admin-diaries'); if(!container) return;
+        const tabs = container.querySelector('#diary-tabs'); const panels = container.querySelector('#diary-panels');
+        if(!tabs || !panels) return;
+        tabs.innerHTML=''; panels.innerHTML='';
+        const byKey = new Map();
+        rows.forEach(r=>{
+          const key=r.key||''; const name=r.name||key; const entry={week:r.week||'', text:r.text||''};
+          if(!byKey.has(key)) byKey.set(key,{name, entries:[]});
+          byKey.get(key).entries.push(entry);
+        });
+        // Build tabs
+        byKey.forEach((val,key)=>{
+          const a=document.createElement('a'); a.href="#admin-diaries"; a.className='pill-tab'; a.setAttribute('data-member-tab', key); a.textContent=val.name; tabs.appendChild(a);
+          const panel=document.createElement('div'); panel.className='diary-panel hidden'; panel.setAttribute('data-member-panel', key);
+          const h=document.createElement('h3'); h.className='card-title'; h.textContent = val.name + ' — Reflections'; panel.appendChild(h);
+          val.entries.forEach(e=>{ const p=document.createElement('p'); p.innerHTML = (e.week?`<strong>${e.week}:</strong> `:'') + e.text; panel.appendChild(p); });
+          panels.appendChild(panel);
+        });
+        // Tabs behavior
+        const tabEls = Array.from(tabs.querySelectorAll('[data-member-tab]'));
+        const panelEls = Array.from(panels.querySelectorAll('[data-member-panel]'));
+        function show(member){
+          tabEls.forEach(btn=>btn.classList.toggle('active', btn.getAttribute('data-member-tab')===member));
+          panelEls.forEach(p=>p.classList.toggle('hidden', p.getAttribute('data-member-panel')!==member));
+        }
+        tabEls.forEach(btn=>btn.addEventListener('click', e=>{
+          e.preventDefault();
+          e.stopPropagation();
+          const member = btn.getAttribute('data-member-tab');
+          if (location.hash !== '#admin-diaries') {
+            location.hash = 'admin-diaries';
+          }
+          show(member);
+        }));
+        if(tabEls.length) show(tabEls[0].getAttribute('data-member-tab'));
+      }
+
+      async function loadWeeklyContent(){
+        const minutes = await fetchCSV('data/meeting-minutes.csv');
+        renderMinutes(minutes);
+        const diaries = await fetchCSV('data/diaries.csv');
+        renderDiaries(diaries);
+      }
+
+      // Initial activation + data load
       activate();
+      loadWeeklyContent();
     })();
   </script>
 </body>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360">
+  <rect width="1200" height="360" fill="#f3f4f6"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Segoe UI, Arial" font-size="24" fill="#6b7280">Gantt Chart Placeholder</text>
+  <rect x="80" y="100" width="220" height="20" fill="#2f5fff" rx="4"/>
+  <rect x="320" y="140" width="260" height="20" fill="#6366f1" rx="4"/>
+  <rect x="600" y="180" width="200" height="20" fill="#2563eb" rx="4"/>
+  <rect x="830" y="220" width="260" height="20" fill="#3b82f6" rx="4"/>
+</svg>

@@ -1,0 +1,16 @@
+﻿key,name,week,text
+han,Han Seoyoun,2025-W03,Clarified system architecture and aligned backend with real-time requirements.
+nevin,Nevin Sim,2025-W03,Streamlined front-end components and documentation; refined UX copy.
+brian,Yue Jun Brian Tan,2025-W03,Improved data ingestion and model training workflow; balanced spatial and textual signals.
+jiahui,Zhang Jiahui,2025-W03,"Prepared datasets, validated data quality, and supported backend integration."
+dillon,"Tan Jun Rong, Dillon",2025-W03,Produced system design diagrams and test scenarios; ensured data consistency.
+han,Han Seoyoun,2025-W04,Iterated on API for explanations and reviewed UI polish.
+nevin,Nevin Sim,2025-W04,Tuned component spacing and added iconography to reduce wall-of-text.
+brian,Yue Jun Brian Tan,2025-W04,Refactored feature store and retrained ranking model with new signals.
+jiahui,Zhang Jiahui,2025-W04,Automated dataset validation and added checks for missing categories.
+dillon,"Tan Jun Rong, Dillon",2025-W04,Extended system diagrams and introduced CSV-driven content loading.
+han,Han Seoyoun,2025-W05,Paired on sprint scope; stabilised streaming events and telemetry.
+nevin,Nevin Sim,2025-W05,Shipped onboarding copy and empty-states; QA with sample accounts.
+brian,Yue Jun Brian Tan,2025-W05,Benchmarked inference path; improved latency with batching.
+jiahui,Zhang Jiahui,2025-W05,Documented data lineage and supported backend integration tests.
+dillon,"Tan Jun Rong, Dillon",2025-W05,Hardened SPA routing and improved Admin layout stacking.
