@@ -1,6 +1,3 @@
-﻿id,title,date,attendees,summary,actions
-MM-01,Week 3 Progress Meeting,19-01-25,All team members,Discussed data model design and planned first prototype,Finalise ERD; Prepare initial POI dataset; Draft UI wireframes
-MM-02,Supervisor Consultation,26-01-25,Team + Supervisor,Reviewed architecture and clarified explainability approach,Refine explanation templates; Confirm streaming stack (Kafka + Flink)
-MM-03,Sprint 1 Review,02-02-25,All team members,Demoed early map UI and baseline recommender,"Collect user feedback; Prioritise bugs; Lock Sprint 2 scope"""""
-MM-04,Data & Model Sync,09-02-25,Data + ML + FE/BE,Aligned feature schema and training cadence,"Freeze feature list; Regenerate embeddings; Update API contract"""""
-MM-05,UX Copy + Onboarding,16-02-25,FE + Docs,Refined onboarding flow and marketing copy,"Ship onboarding v1; Add empty-states; Prepare release notes"""""
+id,title,date,attendees,summary,actions
+MM-01,Week 3 Progress Meeting,2025-01-15,"All team members","Discussed data model design; confirmed roles for data pipeline; planned first map UI prototype.","Finalize ERD; prepare initial POI dataset; draft UI wireframes."
+MM-02,Supervisor Consultation,2025-01-22,"Team + Supervisor","Reviewed architecture and clarified explainability approach for recommendations.","Refine explanation templates; confirm streaming stack (Kafka + Flink)."
