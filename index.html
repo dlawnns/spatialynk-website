@@ -1286,25 +1286,52 @@
         catch(e){ console.warn('CSV load failed', url, e); return null; }
       }
 
-      function renderMinutes(rows){
-        if(!rows) return;
-        const admin = sections.get('admin');
-        if(!admin) return;
-        const list = admin.querySelector('.card .admin-list');
-        if(!list) return;
-        list.innerHTML='';
-        rows.forEach(r=>{
-          const item=document.createElement('div'); item.className='admin-item'; bindReveal(item);
-          const badge=document.createElement('div'); badge.className='badge-soft';
-          const code=document.createElement('span'); code.textContent=r.id||''; badge.appendChild(code);
-          badge.appendChild(document.createTextNode(' – ' + (r.title||'')));
-          item.appendChild(badge);
-          const p1=document.createElement('p'); p1.innerHTML = `<strong>Date:</strong> ${r.date||''} &nbsp; | &nbsp; <strong>Attendees:</strong> ${(r.attendees||'')}`; item.appendChild(p1);
-          if(r.summary){ const p2=document.createElement('p'); p2.innerHTML = `<strong>Summary:</strong> ${r.summary}`; item.appendChild(p2); }
-          if(r.actions){ const p3=document.createElement('p'); p3.innerHTML = `<strong>Action Items:</strong> ${(r.actions||'')}`; item.appendChild(p3); }
-          list.appendChild(item);
-        });
-      }
+        function renderMinutes(rows){
+          if(!rows) return;
+          const admin = sections.get('admin');
+          if(!admin) return;
+          const list = admin.querySelector('.card .admin-list');
+          if(!list) return;
+          list.innerHTML='';
+          rows.forEach(r=>{
+            const item=document.createElement('div'); item.className='admin-item'; bindReveal(item);
+            const badge=document.createElement('div'); badge.className='badge-soft';
+            const code=document.createElement('span'); code.textContent=r.id||''; badge.appendChild(code);
+            badge.appendChild(document.createTextNode(' - ' + (r.title||'')));
+            item.appendChild(badge);
+            const p1=document.createElement('p'); p1.innerHTML = `<strong>Date:</strong> ${r.date||''} &nbsp; | &nbsp; <strong>Attendees:</strong> ${(r.attendees||'')}`; item.appendChild(p1);
+            // Extract "Discussion Points:" from the summary text (if present) and render as its own paragraph.
+            if(r.summary){
+              const rawSummary = String(r.summary);
+              const dpRegex = /Discussion\s*Points:\s*/i;
+              const nextLabelRegex = /(?:Milestone\s*Tracking\s*Notes:|Agenda\s*Summary:)/i;
+              let discussion = '';
+              let cleanedSummary = rawSummary;
+              const m = dpRegex.exec(rawSummary);
+              if(m){
+                const dpStart = m.index + m[0].length;
+                const tail = rawSummary.slice(dpStart);
+                const nextIdx = tail.search(nextLabelRegex);
+                discussion = (nextIdx >= 0 ? tail.slice(0, nextIdx) : tail).trim();
+                // Remove the extracted Discussion Points segment from the displayed summary
+                cleanedSummary = rawSummary.slice(0, m.index) + (nextIdx >= 0 ? tail.slice(nextIdx) : '');
+                cleanedSummary = cleanedSummary.replace(/\s{2,}/g, ' ').trim();
+              }
+              // Render Summary (remaining text)
+              const p2=document.createElement('p');
+              p2.innerHTML = `<strong>Summary:</strong> ${cleanedSummary}`;
+              item.appendChild(p2);
+              // Render Discussion Points right after Summary if available
+              if(discussion){
+                const pDp=document.createElement('p');
+                pDp.innerHTML = `<strong>Discussion Points:</strong> ${discussion}`;
+                item.appendChild(pDp);
+              }
+            }
+            if(r.actions){ const p3=document.createElement('p'); p3.innerHTML = `<strong>Action Items:</strong> ${(r.actions||'')}`; item.appendChild(p3); }
+            list.appendChild(item);
+          });
+        }
 
       function renderDiariesByMember(rows){
         const diariesSec = sections.get('diaries');
