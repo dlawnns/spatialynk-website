@@ -1,0 +1,10 @@
+Elaboration of Project Website
+
+The website should be hosted externally, with a URL that can be easily accessed. no restriction on using "free hosting" places like AWS, blogspot, etc. 
+
+(3)	Serves the following purposes : 
+	a) "Introduction" to your FYP topic, your team members, roles/responsibilities, project objectives
+	b) "Administrative update", where team members regularly upload their project meeting minutes, project schedule/gantt charts, individual reflective diaries
+	c) most importantly, "Marketing tool" - a bit of advertising for your FYP system, explaining: 
+	   - your project's USP, (e.g. offering feature/functions not found/v. expensive in competitor system?)
+	   - how our users benefit from our project, making their life/job/workflow more convenient, %-tage increase their productivity, time savings, etc, if exist, else suggest.

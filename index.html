@@ -1,36 +1,1014 @@
 ﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SpatiaLynk | FYP-25-S4-08</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --bg-alt: #ffffff;
+      --primary: #2f5fff;
+      --primary-soft: rgba(47, 95, 255, 0.08);
+      --text: #1f2933;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
+      --shadow-light: 0 8px 20px rgba(15, 23, 42, 0.04);
+      --max-width: 1100px;
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <!-- ADMIN DIARIES -->
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #e3ebff 0, #f5f7fb 40%, #ffffff 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Layout */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(245, 247, 251, 0.95), rgba(245, 247, 251, 0.8));
+      border-bottom: 1px solid rgba(209, 213, 219, 0.7);
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.6rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ffffff 0, #2f5fff 60%, #111827 100%);
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .nav-title {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.85rem;
+    }
+
+    .nav-title span:first-child {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .nav-title span:last-child {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.9rem;
+      font-size: 0.9rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      color: #4b5563;
+      transition: all 0.18s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(47, 95, 255, 0.08);
+      color: var(--primary);
+    }
+
+    .nav-highlight {
+      border-radius: 999px;
+      padding: 0.3rem 0.7rem;
+      background: #111827;
+      color: #f9fafb !important;
+      font-size: 0.85rem;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
+    }
+
+    /* Hero */
+    .hero {
+      max-width: var(--max-width);
+      margin: 1.4rem auto 0rem;
+      padding: 1.5rem 1.2rem 0.6rem;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(260px, 2.5fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.18rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      color: #374151;
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #020617;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #2f5fff, #6366f1);
+    /* Hero title with image */
+    .hero-title-row { display:flex; align-items:center; gap: 0.75rem; flex-wrap: nowrap; }
+    .hero-title-img { width: 160px; max-width: 28vw; height:auto; border-radius: 12px; box-shadow: var(--shadow-soft); border: 1px solid var(--border); }
+    @media (max-width: 800px) { .hero-title-img { display:none; } }
+      -webkit-background-clip: text;
+    /* Images inside Key Features card */
+    .hero-key-images {
+      display:flex;
+      gap: 0.75rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 0.5rem 0 0.8rem;
+      padding: 0.6rem;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-light);
+    }
+    .hero-key-img { width: 140px; max-width: 28vw; height:auto; border-radius: 12px; box-shadow: var(--shadow-soft); border: 1px solid var(--border); background:#fff; }
+    @media (max-width: 900px) { .hero-key-images { display:none; } }
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: #4b5563;
+      margin-bottom: 1.2rem;
+      max-width: 35rem;
+    }
+
+    .hero-subsubtitle {
+      font-size: 0.88rem;
+      color: #6b7280;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.1rem;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: #111827;
+      color: #f9fafb;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.4);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      color: #374151;
+    }
+
+    .btn-outline:hover {
+      background: rgba(17, 24, 39, 0.04);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      color: #6b7280;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(209, 213, 219, 0.8);
+    }
+
+    .hero-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 24px;
+      padding: 1.3rem 1.3rem 1.2rem;
+      box-shadow: var(--shadow-soft);
+      color: #e5e7eb;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0.25;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(96, 165, 250, 0.8), transparent 55%),
+        radial-gradient(circle at 90% 80%, rgba(129, 140, 248, 0.9), transparent 55%);
+      filter: blur(4px);
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-card-main {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: #f9fafb;
+    }
+
+    .hero-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-chip {
+      padding: 0.4rem 0.55rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 0.08rem;
+    }
+
+    .hero-chip-label {
+      color: #9ca3af;
+      font-size: 0.7rem;
+    }
+
+    .hero-chip-value {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .hero-card-badge {
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.3rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.16);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.6);
+    }
+
+    /* Sections */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1.2rem 1.2rem 1.4rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #020617;
+    }
+
+    .section-tagline {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1rem 1rem 1rem;
+      box-shadow: var(--shadow-light);
+    }
+
+    .card + .card {
+      margin-top: 0.9rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #374151;
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    li {
+      font-size: 0.9rem;
+      color: #374151;
+      margin-bottom: 0.25rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.15rem;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: #1d4ed8;
+    }
+
+    /* Team */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .team-card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      padding: 0.8rem 0.85rem 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .team-name {
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.2rem;
+    }
+
+    .team-role {
+      color: #4b5563;
+      font-size: 0.8rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .team-resp-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+      margin-bottom: 0.2rem;
+    }
+
+    .team-contact {
+      margin-top: 0.35rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    /* Admin updates */
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.85rem;
+    }
+
+    .admin-list {
+      margin-top: 0.4rem;
+      border-top: 1px dashed var(--border);
+      padding-top: 0.4rem;
+    }
+
+    .admin-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .badge-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(17, 24, 39, 0.04);
+      font-size: 0.76rem;
+      color: #4b5563;
+      margin-bottom: 0.15rem;
+    }
+
+    .badge-soft span {
+      font-weight: 500;
+      color: #111827;
+    }
+
+    /* Flex rows */
+    .two-col {
+      display: block; /* stack vertically */
+    }
+    .two-col > .card { height: auto; display: block; }
+    .two-col > .card + .card { margin-top: 1rem; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.7rem;
+    }
     
+
+    .feature-card {
+      padding: 0.75rem 0.8rem 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      font-size: 0.85rem;
+    }
+
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      color: #111827;
+    }
+
+    .feature-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+      margin-bottom: 0.1rem;
+    }
+
+    .small-list {
+      padding-left: 1.1rem;
+      margin: 0.1rem 0 0.4rem;
+    }
+
+    .small-list li {
+      font-size: 0.85rem;
+      margin-bottom: 0.18rem;
+    }
+
+    .benefit-list li::marker {
+      color: #22c55e;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(209, 213, 219, 0.9);
+      background: rgba(248, 250, 252, 0.95);
+      margin-top: 1rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.8rem 1.2rem 1.1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.6rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      header {
+        position: sticky;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        align-items: flex-start;
+      }
+      .nav-links {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    /* SPA tabs helper */
+    .hidden { display: none !important; }
+
+    /* Section visual order */
+    #home { order: 1; }
+    #marketing { order: 2; }
+    #about { order: 3; }
+    #team { order: 5; }
+    #admin { order: 6; }
+    #diaries { order: 7; }
+
+    /* Hero stats strip */
+    .hero-stats {
+      margin-top: 0.9rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.6rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.6rem 0.7rem;
+      box-shadow: var(--shadow-light);
+      display: flex; align-items: center; gap: 0.45rem;
+      font-size: 0.86rem; color: #111827;
+    }
+    .stat-num { font-weight: 700; color: var(--primary); font-variant-numeric: tabular-nums; }
+
+    /* About grid */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+    @media (max-width: 880px) { .about-grid { grid-template-columns: minmax(0,1fr); } }
+    .li-icon { width: 14px; height: 14px; margin-right: 6px; vertical-align: -2px; fill: currentColor; color: var(--primary); }
+
+    /* Team avatars */
+    .team-card-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem; }
+    .avatar { width: 36px; height: 36px; border-radius: 999px; background: linear-gradient(135deg,#e0e7ff,#c7d2fe); color:#1e293b; display:flex; align-items:center; justify-content:center; font-weight:700; box-shadow: 0 1px 0 rgba(2,6,23,0.08) inset, 0 6px 12px rgba(2,6,23,0.06); }
+    .team-name { margin: 0; }
+    .team-card p { margin-top: 0.25rem; }
+
+    /* Collapsible details */
+    details { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-alt); padding: 0.55rem 0.7rem; margin-bottom: 0.5rem; }
+    summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.5rem; }
+    summary::-webkit-details-marker { display: none; }
+    .summary-title { font-weight: 600; color: #111827; }
+
+    /* Admin-specific helpers */
+    .gantt-card img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); display: block; }
+    .tab-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.35rem 0 0.6rem; }
+    .pill-tab { padding: 0.25rem 0.6rem; border-radius: 999px; border: 1px solid var(--border); background: #fff; color: #374151; cursor: pointer; font-size: 0.84rem; }
+    .pill-tab.active { background: var(--primary-soft); color: #1d4ed8; border-color: rgba(59,130,246,0.35); }
+    .admin-grid .gantt-card,
+    .admin-grid .minutes-card { grid-column: 1 / -1; }
+
+    /* Section bands for marketing flow */
+    .band { position: relative; }
+    .band::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      top: 0; bottom: 0;
+      background: var(--band-bg, transparent);
+      z-index: -1;
+    }
+    .band--alt { --band-bg: linear-gradient(180deg, #f6f8ff 0%, #ffffff 70%); }
+    .band--dark { --band-bg: linear-gradient(180deg, #0b1220 0%, #0f172a 100%); }
+    .band--dark .section-title { color: #f9fafb; }
+    .band--dark .section-tagline { color: #cbd5e1; }
+    .band--dark p, .band--dark li { color: #d1d5db; }
+    .band--dark a { color: #c7d2fe; }
+    .band--dark .card {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(148, 163, 184, 0.25);
+      color: #e5e7eb;
+      box-shadow: 0 8px 24px rgba(2,6,23,0.35);
+    }
+    .band--dark .feature-card { background: rgba(255,255,255,0.04); border-color: rgba(148,163,184,0.25); }
+    .band--dark .badge-soft { background: rgba(148, 163, 184, 0.18); color: #e5e7eb; }
+    .band--dark .badge-soft span { color: #fff; }
+    .seamless-top { padding-top: 0.4rem; margin-top: 0; }
+
+    /* Small icons for visual cues */
+    .icon { width: 16px; height: 16px; margin-right: 6px; vertical-align: -2px; fill: currentColor; color: var(--primary); }
+
+    /* Card polish */
+    .card { transition: transform 180ms ease, box-shadow 180ms ease; will-change: transform; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(15,23,42,0.12); }
+
+    /* Scroll reveal */
+    .reveal-up { opacity: 0; transform: translateY(12px); transition: opacity 280ms ease, transform 280ms ease; will-change: opacity, transform; }
+    .reveal-up.is-visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-up { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
+    /* Hero layout tweaks */
+    .hero-card { grid-column: 1 / -1; }
+    .hero-split {
+      grid-column: 1 / -1;
+      display: block; /* stack cards vertically */
+      margin-top: 0.9rem;
+    }
+    .hero-split > .card { height: auto; display: block; }
+    .hero-split > .card + .card { margin-top: 0.9rem; }
+
+    /* Equal-height cards for side-by-side layouts */
+    .feature-grid { align-items: stretch; grid-auto-rows: 1fr; }
+    .feature-grid > .feature-card { height: 100%; display: flex; flex-direction: column; }
+    .feature-grid > .feature-card > *:last-child { margin-bottom: 0; }
+    /* Two-col no longer equal-height */
+    .two-col { align-items: initial; grid-auto-rows: initial; }
+    .two-col > .card > *:last-child { margin-bottom: 0; }
+    /* Global last-child trim inside cards to avoid bottom overflow */
+    .card > *:last-child { margin-bottom: 0; }
+    .feature-card > *:last-child { margin-bottom: 0; }
+
+    /* Comparison table */
+    .table-wrap { overflow-x: auto; }
+    .table { width: 100%; border-collapse: collapse; }
+    .table th, .table td { border: 1px solid var(--border); padding: 0.55rem 0.6rem; font-size: 0.9rem; text-align: center; }
+    .table th:first-child, .table td:first-child { text-align: left; font-weight: 600; }
+    .icon-sm { width: 16px; height: 16px; vertical-align: -2px; }
+    .icon-ok { color: #16a34a; }
+  </style>
+</head>
+<body>
+<div class="page">
+  <!-- NAVBAR -->
+  <header>
+    <nav class="nav">
+      <div class="nav-left">
+        <div class="logo-circle">SL</div>
+        <div class="nav-title">
+          <span>FYP-25-S4-08</span>
+          <span>SpatiaLynk</span>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#team">Our Team</a>
+        <a href="#admin">Schedule</a>
+        <a href="#diaries">Diaries</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO / HOME -->
+    <section id="home" class="hero">
+      <div>
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          Spatial-Textual Recommendation &bull; Explainable AI
+        </div>
+        <div class="hero-title-row">
+          <h1 class="hero-title">
+            <span>SpatiaLynk</span> &mdash; Multi-Level &amp; Explainable Location Recommendations
+          </h1>
+        </div>
+        <p class="hero-subtitle">
+          SpatiaLynk is a recommender application that helps you discover meaningful places
+          by taking into your location and preferences, with clear explanations for
+          your every recommendation.
+        </p>
+        <p class="hero-subsubtitle">
+          SpatiaLynk allows you to easily get quick recommendations that you are bound to enjoy!
+        </p>
+        
+
+        
+
+        
+      </div>
+
+      <aside class="hero-card">
+        <div class="hero-card-inner">
+          <div class="hero-card-title">Key Features</div>
+          <div class="hero-card-main">Four things you'll love about SpatiaLynk.</div>
+          <div class="hero-key-images">
+            <img class="hero-key-img" src="assets/hero-dashboard-1.png" alt="App preview 1" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img class="hero-key-img" src="assets/hero-dashboard-2.png" alt="App preview 2" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img class="hero-key-img" src="assets/hero-dashboard-3.png" alt="App preview 3" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          </div>
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-tag">Key Feature</div>
+              <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a6 6 0 00-6 6c0 4.5 6 12 6 12s6-7.5 6-12a6 6 0 00-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z"/></svg>Multi-Level Recommendations</div>
+              <p>
+                SpatiaLynk adjusts recommendations based on zoom level: zooming out shows recommended districts or regions, while zooming in refines suggestions to specific attractions.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-tag">Key Feature</div>
+              <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.5 5 5 2.5-5 2.5L12 17l-2.5-5L4 9.5 9.5 7 12 2z"/></svg>Explainable Recommendations</div>
+              <p>
+                For each recommendation, SpatiaLynk generates a short explanation.<br>
+                To increase trust and helps you understand why the we suggested a location.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-tag">Key Feature</div>
+              <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20h3V10H5v10zm5 0h3V6h-3v14zm5 0h3V13h-3v7z"/></svg>Personalised Ranking</div>
+              <p>
+                Candidate Recommendations are generated using advanced models based on user's distance, popularity, user interests, and past your interactions.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-tag">Premium Feature</div>
+              <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a2 2 0 012 2v18l-8-4-8 4V4a2 2 0 012-2z"/></svg>Itinerary & Saved Collections</div>
+              <p>
+                Premium users can generate day itineraries and save all recommendations into custom folders, improving your daily planning efficiency.
+              </p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="hero-split">
+        <div class="card">
+          <h3 class="card-title">Who It's For</h3>
+          <ul class="small-list">
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg>
+              <strong>Visitors & Explorers:</strong> Discover new districts and hidden-gems fast.
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a6 6 0 100 12 6 6 0 000-12z"/></svg>
+              <strong>Free Members:</strong> Get fuss-free personalised and explainable results using your preferences. 
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"/></svg>
+              <strong>Premium Members:</strong> Unlock itinerary generation, saved collections, and priority ranking.
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H4zM4 20h16"/></svg>
+              <strong>Business Partners:</strong> Highlight your business to our users and update your latest information.
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Go Premium</h3>
+          <p class="card-subtitle">More personal. More powerful. Still simple.</p>
+          <ul class="small-list">
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg>
+              <strong>Smart Itineraries:</strong> Auto-build an itinerary for your entire day based on your preferences and time.
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a2 2 0 012 2v18l-8-4-8 4V4a2 2 0 012-2z"/></svg>
+              <strong>Saved Collections:</strong> Keep favourite places of interest in folders like &ldquo;Weekend Spots&rdquo;.
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20h14M9 16l3-3 3 3M12 4v9"/></svg>
+              <strong>Priority Ranking:</strong> See better-matching places first as you explore.
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 110 8 4 4 0 010-8z M12 2v4m0 12v4m10-10h-4M6 12H2m14.95 7.05l-2.83-2.83M5.88 5.88L3.05 3.05"/></svg>
+              <strong>Deeper Personalisation:</strong> Learns from feedback to refine every suggestion.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:0.9rem; grid-column: 1 / -1;">
+        <h3 class="card-title">How We Compare</h3>
+        <div class="table-wrap">
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Google Maps</th>
+                <th>Yelp</th>
+                <th>Places</th>
+                <th>SpatiaLynk</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Multi-level spatial recs</td>
+                <td></td><td></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>Explainable recommendations</td>
+                <td></td><td></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>Context-aware suggestions</td>
+                <td></td><td></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>Personalised recommendations</td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>User reviews & ratings</td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>Photo uploads</td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>Booking / reservations</td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>Data visualisation / heatmap</td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+                <td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>AI-driven profiling</td>
+                <td></td><td></td><td></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>Gamification / engagement</td>
+                <td></td><td></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>Events / activities</td>
+                <td></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td><td></td><td><svg class="icon icon-sm icon-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg></td>
+              </tr>
+              <tr>
+                <td>Pricing</td>
+                <td>Free</td>
+                <td>Free + Premium</td>
+                <td>Free + Premium</td>
+                <td>Free + Premium</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
 
     <!-- ABOUT US -->
     <section id="about" class="band band--alt">
       <div class="section-header">
-        <h2 class="section-title">About Us</h2>
-        <p class="section-tagline">Problems with modern platforms and our objectives</p>
+        <h2 class="section-title">Our Team</h2>
+        <p class="section-tagline">Enthusiastic young individuals looking to create solutions for everyday interruptions</p>
       </div>
       <div class="about-grid">
-      <div class="card">
-        <h3 class="card-title">Problems We See</h3>
-        <ul>
-          <li><svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M12 3v18"/></svg><strong>Fragmented signals:</strong> Platforms treat spatial vs textual signals separately.</li>
-          <li><svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg><strong>Low explainability:</strong> Users donâ€™t know why places are recommended.</li>
-          <li><svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h12M3 17h6"/></svg><strong>One-size-fits-all:</strong> Results ignore map level and user intent.</li>
-        </ul>
-      </div>
 
-      <div class="card">
-        <h3 class="card-title">Project Objectives</h3>
-        <p class="card-subtitle">High-level goals of FYP-25-S4-08</p>
-        <ul>
-          <li>Design and implement a <strong>multi-level spatial-textual recommendation system</strong> that can operate at region, district, and POI levels.</li>
-          <li>Integrate <strong>explainable AI</strong> so that users can see why a place was recommended based on their preferences and past behaviour.</li>
-          <li>Support <strong>real-time recommendation</strong> using streaming data from user interactions and spatial queries.</li>
-          <li>Provide a <strong>map-based web and mobile interface</strong> that is intuitive for different user roles (end users, system admin, business partners).</li>
-          <li>Evaluate the systemâ€™s functional, non-functional, and ML performance, including cold-start and explanation fidelity.</li>
-        </ul>
       </div>
+    </section>
+
+    <!-- DIARIES (per-member) -->
+    <section id="diaries" class="band band--alt hidden">
+      <div class="section-header">
+        <h2 class="section-title">Reflective Diaries</h2>
+        <p class="section-tagline">Weekly reflections by team member</p>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Han Seoyoun</h3>
+        <div class="admin-list diary-list" data-member="han"></div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Nevin Sim</h3>
+        <div class="admin-list diary-list" data-member="nevin"></div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Yue Jun Brian Tan</h3>
+        <div class="admin-list diary-list" data-member="brian"></div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Zhang Jiahui</h3>
+        <div class="admin-list diary-list" data-member="jiahui"></div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Tan Jun Rong, Dillon</h3>
+        <div class="admin-list diary-list" data-member="dillon"></div>
       </div>
     </section>
 
@@ -44,7 +1022,7 @@
       <div class="team-grid">
         <div class="team-card">
           <div class="team-name">Han Seoyoun</div>
-          <div class="team-role">Project Leader â€¢ Software Engineer â€¢ UX/UI Designer â€¢ Documentation</div>
+          <div class="team-role">Project Leader &bull; Software Engineer &bull; UX/UI Designer &bull; Documentation</div>
           <div class="team-resp-label">Key Responsibilities</div>
           <p>
             Monitors project progress and delegates tasks. Designs and implements backend components.
@@ -55,7 +1033,7 @@
 
         <div class="team-card">
           <div class="team-name">Nevin Sim</div>
-          <div class="team-role">Lead Documentation â€¢ Front-End Developer â€¢ Software Analyst â€¢ Tester</div>
+          <div class="team-role">Lead Documentation &bull; Front-End Developer &bull; Software Analyst &bull; Tester</div>
           <div class="team-resp-label">Key Responsibilities</div>
           <p>
             Manages project documentation. Designs and implements front-end components.
@@ -66,7 +1044,7 @@
 
         <div class="team-card">
           <div class="team-name">Yue Jun Brian Tan</div>
-          <div class="team-role">Data Engineer â€¢ Algorithm Engineer â€¢ Software Engineer & Documentation</div>
+          <div class="team-role">Data Engineer &bull; Algorithm Engineer &bull; Software Engineer &amp; Documentation</div>
           <div class="team-resp-label">Key Responsibilities</div>
           <p>
             Handles data acquisition, preparation, and model training. Builds and moderates web components,
@@ -77,7 +1055,7 @@
 
         <div class="team-card">
           <div class="team-name">Zhang Jiahui</div>
-          <div class="team-role">Data Engineer â€¢ Software Engineer â€¢ Documentation</div>
+          <div class="team-role">Data Engineer &bull; Software Engineer &bull; Documentation</div>
           <div class="team-resp-label">Key Responsibilities</div>
           <p>
             Prepares and manages project datasets. Supports backend and application development and contributes to
@@ -88,7 +1066,7 @@
 
         <div class="team-card">
           <div class="team-name">Tan Jun Rong, Dillon</div>
-          <div class="team-role">System Designer â€¢ Software Engineer â€¢ Software Tester â€¢ Documentation</div>
+          <div class="team-role">System Designer &bull; Software Engineer &bull; Software Tester &bull; Documentation</div>
           <div class="team-resp-label">Key Responsibilities</div>
           <p>
             Creates system design diagrams. Supports backend development and testing. Handles data processing,
@@ -115,123 +1093,8 @@
         </div>
         <div class="card minutes-card">
           <h3 class="card-title">Project Meeting Minutes</h3>
-          <p class="card-subtitle">
-            This section is used for regular updates of team meeting minutes. Replace the sample entries with your real minutes.
-          </p>
-          <div class="admin-list">
-            <div class="admin-item">
-              <div class="badge-soft">
-                <span>MM-01</span> â€¢ Week 3 Progress Meeting
-              </div>
-              <p><strong>Date:</strong> [DD/MM/YYYY] &nbsp; | &nbsp; <strong>Attendees:</strong> All team members</p>
-              <p><strong>Summary:</strong> Discussed data model design, confirmed roles for data pipeline, and planned first prototype of map UI.</p>
-              <p><strong>Action Items:</strong> Finalise ERD, prepare initial POI dataset, draft UI wireframes.</p>
-            </div>
-            <div class="admin-item">
-              <div class="badge-soft">
-                <span>MM-02</span> â€¢ Supervisor Consultation
-              </div>
-              <p><strong>Date:</strong> [DD/MM/YYYY] &nbsp; | &nbsp; <strong>Attendees:</strong> Team + Supervisor</p>
-              <p><strong>Summary:</strong> Reviewed architecture design and clarified explainability approach for recommendations.</p>
-              <p><strong>Action Items:</strong> Refine explanation templates, confirm streaming stack (Kafka + Flink).</p>
-            </div>
-            <p style="font-size:0.8rem;color:#9ca3af;margin-top:0.3rem;">
-              Editor note: Add new entries here as the project progresses.
-            </p>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3 class="card-title">Project Schedule / Gantt Chart</h3>
-          <p class="card-subtitle">
-            Overview of planned milestones and current progress.
-          </p>
-          <p>
-            The project follows an Agile-Scrum style with iterative sprints. Key phases include:
-          </p>
-          <ul class="small-list">
-            <li>Requirements & research</li>
-            <li>Architecture & design</li>
-            <li>Core system implementation (backend, frontend, data pipelines)</li>
-            <li>Model training and evaluation</li>
-            <li>Integration, testing, and refinements</li>
-            <li>Final evaluation and documentation</li>
-          </ul>
-          <p>
-            <strong>Gantt Chart Placeholder:</strong><br />
-            You may embed an image or link to a live Gantt chart here, e.g. exported from Excel, Notion, or a project
-            management tool.
-          </p>
-          <p style="font-size:0.8rem;color:#9ca3af;margin-top:0.3rem;">
-            Editor note: Replace this paragraph with your actual Gantt chart image or link.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3 class="card-title">Individual Reflective Diaries</h3>
-          <p class="card-subtitle">
-            Short reflections by each team member (learning, challenges, personal progress).
-          </p>
-          <div class="admin-list">
-            <div class="admin-item">
-              <div class="badge-soft"><span>Han Seoyoun</span> â€¢ Reflection Sample</div>
-              <p>
-                This week, I focused on clarifying the system architecture and aligning the backend design with our
-                real-time streaming requirements. The main challenge was balancing scalability with our FYP scope.
-              </p>
-            </div>
-            <div class="admin-item">
-              <div class="badge-soft"><span>Dillon</span> â€¢ Reflection Sample</div>
-              <p>
-                I spent time designing the system diagrams and understanding how the graph database interacts with
-                the spatial database. Translating a complex architecture into clear diagrams was challenging but useful.
-              </p>
-            </div>
-            <p style="font-size:0.8rem;color:#9ca3af;margin-top:0.3rem;">
-              Editor note: Replace these samples with real weekly reflections for each member.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SYSTEM OVERVIEW -->
-    <section id="system" class="band">
-      <div class="section-header">
-        <h2 class="section-title">System Overview</h2>
-        <p class="section-tagline">Architecture and main components in simple terms</p>
-      </div>
-
-      <div class="two-col">
-        <div class="card">
-          <h3 class="card-title">High-Level Architecture</h3>
-          <p>
-            SpatiaLynk is organised into several main layers to support real-time, explainable location recommendations:
-          </p>
-          <ul class="small-list">
-            <li><strong>Client Layer:</strong> Web and mobile applications where users search, view maps, and receive recommendations.</li>
-            <li><strong>Data Ingestion Layer:</strong> Collects real-time user events (searches, likes, visits) and static data (POIs, users).</li>
-            <li><strong>Model Training Layer:</strong> Trains ML models such as XGBoost and Graph Neural Networks on spatial-textual data.</li>
-            <li><strong>Real-Time Recommendation Layer:</strong> Generates, ranks, and explains recommendations for each user request.</li>
-          </ul>
-          <p>
-            The system uses a combination of <strong>PostgreSQL/PostGIS</strong>, <strong>Neo4j</strong>, and a data lake
-            (AWS S3 + Snowflake) to store and process data.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3 class="card-title">User Roles Supported</h3>
-          <p>
-            The system is designed for multiple user roles, each with its own set of use cases:
-          </p>
-          <ul class="small-list">
-            <li><strong>Unregistered User:</strong> Browse public content and view POIs without logging in.</li>
-            <li><strong>Registered Free-Tier User:</strong> Create an account, set preferences, receive recommendations, give feedback.</li>
-            <li><strong>Registered Premium User:</strong> Access advanced features like itinerary generation and saved POI folders.</li>
-            <li><strong>Business Partner:</strong> Upload and manage business listings as Points of Interest (POIs).</li>
-            <li><strong>System Admin:</strong> Manage system objects, monitor system health, and moderate content.</li>
-          </ul>
+          <p class="card-subtitle">Auto-updated from data/meeting-minutes.csv</p>
+          <div class="admin-list"></div>
         </div>
       </div>
     </section>
@@ -241,73 +1104,6 @@
       <div class="section-header">
         <h2 class="section-title">System Marketing & Value Proposition</h2>
         <p class="section-tagline">Unique selling points, features, and user benefits</p>
-      </div>
-
-      <div class="card" style="margin-bottom:0.9rem;">
-        <h3 class="card-title">Unique Selling Propositions (USP)</h3>
-        <p class="card-subtitle">
-          What makes SpatiaLynk stand out compared to typical recommendation systems
-        </p>
-        <ul class="small-list">
-          <li>
-            <strong>Multi-Level Spatial Recommendations:</strong>
-            Adapts results across different map levels (region â†’ district â†’ specific POIs).
-          </li>
-          <li>
-            <strong>Explainable AI:</strong>
-            Every recommendation is accompanied by a clear, user-friendly explanation template
-            (e.g. â€œRecommended because you liked quiet cafes nearby and often search in this districtâ€).
-          </li>
-          <li>
-            <strong>Hybrid Spatial + Textual Intelligence:</strong>
-            Combines proximity, categories, descriptions, and user reviews instead of relying on only one data type.
-          </li>
-          <li>
-            <strong>Graph-Based Reasoning:</strong>
-            Uses a graph database to trace meaningful paths between users and POIs for better explanations.
-          </li>
-          <li>
-            <strong>Research-Grade but Practical:</strong>
-            Designed as an academic prototype that can be extended into real-world smart city and tourism use cases.
-          </li>
-        </ul>
-      </div>
-
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-tag">Key Feature</div>
-          <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a6 6 0 00-6 6c0 4.5 6 12 6 12s6-7.5 6-12a6 6 0 00-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z"/></svg>Multi-Level Recommendations</div>
-          <p>
-            The system can recommend at different spatial levels. When users zoom out, they see recommended districts or regions. When they zoom in, the system refines recommendations to specific POIs.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-tag">Key Feature</div>
-          <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.5 5 5 2.5-5 2.5L12 17l-2.5-5L4 9.5 9.5 7 12 2z"/></svg>Explainable Recommendations</div>
-          <p>
-            For each recommended POI, SpatiaLynk generates a short explanation based on graph paths and user preferences.
-            This increases trust and helps users understand why the system suggested a place.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-tag">Key Feature</div>
-          <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20h3V10H5v10zm5 0h3V6h-3v14zm5 0h3V13h-3v7z"/></svg>Personalised Ranking</div>
-          <p>
-            Candidate POIs are first generated using embeddings and graph models, then ranked by an XGBoost model using
-            features such as distance, popularity, user interests, and past interactions.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-tag">Premium Feature</div>
-          <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a2 2 0 012 2v18l-8-4-8 4V4a2 2 0 012-2z"/></svg>Itinerary & Saved Collections</div>
-          <p>
-            Premium users can generate day itineraries and save recommended POIs into custom folders (e.g. â€œWeekend
-            Hangoutsâ€, â€œStudy Spotsâ€), improving planning efficiency.
-          </p>
-        </div>
       </div>
 
       <div class="two-col" style="margin-top:0.9rem;">
@@ -343,9 +1139,9 @@
       </div>
 
       <div class="card" style="margin-top:0.9rem;">
-        <h3 class="card-title">Future Potential & Extensions</h3>
+        <h3 class="card-title">Potential Extensions</h3>
         <p>
-          Beyond this FYP, SpatiaLynk can be extended towards:
+          SpatiaLynk can be extended towards:
         </p>
         <ul class="small-list">
           <li>Smart city planning and urban mobility services.</li>
@@ -368,8 +1164,59 @@
   <script>
     (function() {
       const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
-      const sectionIds = ['home','about','team','system','admin','marketing'];
+      const sectionIds = ['home','about','team','admin','diaries','marketing'];
       const sections = new Map(sectionIds.map(id => [id, document.getElementById(id)]));
+
+      // Reduced-motion guard and scroll-reveal setup
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let srObserver = null;
+      function bindReveal(el){
+        if(!el) return;
+        el.classList.add('reveal-up');
+        if(prefersReducedMotion){ el.classList.add('is-visible'); return; }
+        if(srObserver) srObserver.observe(el);
+      }
+      function setupScrollReveal(){
+        if(prefersReducedMotion){
+          document.querySelectorAll('.reveal-up').forEach(el=>el.classList.add('is-visible'));
+          return;
+        }
+        srObserver = new IntersectionObserver((entries)=>{
+          entries.forEach(entry=>{
+            if(entry.isIntersecting){
+              entry.target.classList.add('is-visible');
+              srObserver.unobserve(entry.target);
+            }
+          });
+        }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+        // Seed common targets (exclude hero-split cards to avoid offset)
+        const targets = [
+          ...document.querySelectorAll('.band .section-header'),
+          ...document.querySelectorAll('.band .card'),
+          ...document.querySelectorAll('.team-card, .feature-card, .admin-item, .hero-card, .stat-card')
+        ];
+        targets.forEach(el=> bindReveal(el));
+      }
+
+      // Equalize heights for side-by-side hero cards
+      function equalizeHeroSplit(){
+        const container = document.querySelector('.hero-split');
+        if(!container) return;
+        const cards = Array.from(container.children).filter(el=>el.classList.contains('card'));
+        // Clear any previously set min-heights so cards flow naturally
+        cards.forEach(c=>{ c.style.minHeight=''; c.style.removeProperty('min-height'); });
+      }
+
+      // Hiding Admin card
+      {
+        const adminEl = sections.get('admin');
+        if (adminEl) {
+          const oldCard = Array.from(adminEl.querySelectorAll('.card')).find(c => (
+            c.querySelector('.card-title')?.textContent || ''
+          ).toLowerCase().includes('individual reflective diaries'));
+          if (oldCard) oldCard.remove();
+        }
+      }
 
       function activate(id) {
         const target = (id || location.hash.slice(1) || 'home');
@@ -386,21 +1233,7 @@
           if (group.has(key)) el.classList.remove('hidden');
           else el.classList.add('hidden');
         });
-        // Cleanup Admin: show only Gantt image + Meeting Minutes
-        if (normalized === 'admin') {
-          const admin = sections.get('admin');
-          if (admin) {
-            admin.querySelectorAll('.card').forEach(card => {
-              const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
-              const isGanttImage = card.classList.contains('gantt-card');
-              const isMinutes = title.includes('meeting minutes');
-              const isDiaries = title.includes('reflective diaries');
-              const isGanttText = title.includes('project schedule') && !isGanttImage;
-              if (isDiaries || isGanttText) card.classList.add('hidden');
-              if (isGanttImage || isMinutes) card.classList.remove('hidden');
-            });
-          }
-        }
+        // Admin cleanup removed
         navLinks.forEach(a => {
           const match = a.getAttribute('href').slice(1) === normalized;
           if (match) {
@@ -462,10 +1295,10 @@
         if(!list) return;
         list.innerHTML='';
         rows.forEach(r=>{
-          const item=document.createElement('div'); item.className='admin-item';
+          const item=document.createElement('div'); item.className='admin-item'; bindReveal(item);
           const badge=document.createElement('div'); badge.className='badge-soft';
           const code=document.createElement('span'); code.textContent=r.id||''; badge.appendChild(code);
-          badge.appendChild(document.createTextNode(' â€” ' + (r.title||'')));
+          badge.appendChild(document.createTextNode(' – ' + (r.title||'')));
           item.appendChild(badge);
           const p1=document.createElement('p'); p1.innerHTML = `<strong>Date:</strong> ${r.date||''} &nbsp; | &nbsp; <strong>Attendees:</strong> ${(r.attendees||'')}`; item.appendChild(p1);
           if(r.summary){ const p2=document.createElement('p'); p2.innerHTML = `<strong>Summary:</strong> ${r.summary}`; item.appendChild(p2); }
@@ -474,58 +1307,53 @@
         });
       }
 
-      function renderDiaries(rows){
-        if(!rows) return;
-        const container = document.getElementById(); if(!container) return;
-        const tabs = container.querySelector('#diary-tabs'); const panels = container.querySelector('#diary-panels');
-        if(!tabs || !panels) return;
-        tabs.innerHTML=''; panels.innerHTML='';
-        const byKey = new Map();
-        rows.forEach(r=>{
-          const key=r.key||''; const name=r.name||key; const entry={week:r.week||'', text:r.text||''};
-          if(!byKey.has(key)) byKey.set(key,{name, entries:[]});
-          byKey.get(key).entries.push(entry);
+      function renderDiariesByMember(rows){
+        const diariesSec = sections.get('diaries');
+        if(!diariesSec) return;
+        const lists = Array.from(diariesSec.querySelectorAll('.diary-list'));
+        lists.forEach(list=>{
+          const key = (list.getAttribute('data-member')||'').trim();
+          list.innerHTML='';
+          const entries = (rows||[]).filter(r => (r.key||'').trim() === key);
+          if(!entries.length){
+            const p=document.createElement('p');
+            p.style.cssText = 'font-size:0.9rem;color:#9ca3af;margin-top:0.3rem;';
+            p.textContent = 'No entries yet.';
+            list.appendChild(p);
+            return;
+          }
+          entries.forEach(e=>{
+            const item=document.createElement('div'); item.className='admin-item'; bindReveal(item);
+            const badge=document.createElement('div'); badge.className='badge-soft';
+            const code=document.createElement('span'); code.textContent=(e.week||'Entry'); badge.appendChild(code);
+            item.appendChild(badge);
+            const p=document.createElement('p'); p.innerHTML = e.text || '';
+            item.appendChild(p);
+            list.appendChild(item);
+          });
         });
-        // Build tabs
-        byKey.forEach((val,key)=>{
-          const a=document.createElement('button'); a.type='button'; a.className='pill-tab'; a.setAttribute('data-member-tab', key); a.textContent=val.name; tabs.appendChild(a);
-          const panel=document.createElement('div'); panel.className='diary-panel hidden'; panel.setAttribute('data-member-panel', key);
-          const h=document.createElement('h3'); h.className='card-title'; h.textContent = val.name + ' — Reflections'; panel.appendChild(h);
-          val.entries.forEach(e=>{ const p=document.createElement('p'); p.innerHTML = (e.week?`<strong>${e.week}:</strong> `:'') + e.text; panel.appendChild(p); });
-          panels.appendChild(panel);
-        });
-        // Tabs behavior
-        const tabEls = Array.from(tabs.querySelectorAll('[data-member-tab]'));
-        const panelEls = Array.from(panels.querySelectorAll('[data-member-panel]'));
-        function show(member){
-          tabEls.forEach(btn=>btn.classList.toggle('active', btn.getAttribute('data-member-tab')===member));
-          panelEls.forEach(p=>p.classList.toggle('hidden', p.getAttribute('data-member-panel')!==member));
-        }
-        tabEls.forEach(btn=>btn.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); const member = btn.getAttribute('data-member-tab'); show(member); }));
-        // Show all member sections on the same page and hide tabs
-        if (tabs) { tabs.style.display = 'none'; }
-        panelEls.forEach(p=>p.classList.remove('hidden'));
       }
+
 
       async function loadWeeklyContent(){
         const minutes = await fetchCSV('data/meeting-minutes.csv');
         renderMinutes(minutes);
-        const diaries = await fetchCSV('data/diaries.csv?v=' + Date.now());
-        renderDiaries(diaries);
+        const diaries = await fetchCSV('data/diaries.csv');
+        renderDiariesByMember(diaries);
+        // After dynamic content loads, re-equalize
+        equalizeHeroSplit();
       }
 
       // Initial activation + data load
+      setupScrollReveal();
+      equalizeHeroSplit();
       activate();
       loadWeeklyContent();
+      window.addEventListener('resize', equalizeHeroSplit);
     })();
   </script>
 </body>
 </html>
-
-
-
-
-
 
 
 
