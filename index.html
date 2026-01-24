@@ -1,838 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>SpatiaLynk | FYP-25-S4-08</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    :root {
-      --bg: #f5f7fb;
-      --bg-alt: #ffffff;
-      --primary: #2f5fff;
-      --primary-soft: rgba(47, 95, 255, 0.08);
-      --text: #1f2933;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --radius-lg: 16px;
-      --radius-md: 10px;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
-      --shadow-light: 0 8px 20px rgba(15, 23, 42, 0.04);
-      --max-width: 1100px;
-    }
+﻿<!DOCTYPE html>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #e3ebff 0, #f5f7fb 40%, #ffffff 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    /* Layout */
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(12px);
-      background: linear-gradient(to bottom, rgba(245, 247, 251, 0.95), rgba(245, 247, 251, 0.8));
-      border-bottom: 1px solid rgba(209, 213, 219, 0.7);
-    }
-
-    .nav {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0.6rem 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .logo-circle {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: radial-gradient(circle, #ffffff 0, #2f5fff 60%, #111827 100%);
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
-    .nav-title {
-      display: flex;
-      flex-direction: column;
-      font-size: 0.85rem;
-    }
-
-    .nav-title span:first-child {
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .nav-title span:last-child {
-      font-weight: 600;
-      color: #111827;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 0.9rem;
-      font-size: 0.9rem;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .nav-links a {
-      padding: 0.25rem 0.6rem;
-      border-radius: 999px;
-      color: #4b5563;
-      transition: all 0.18s ease;
-    }
-
-    .nav-links a:hover {
-      background: rgba(47, 95, 255, 0.08);
-      color: var(--primary);
-    }
-
-    .nav-highlight {
-      border-radius: 999px;
-      padding: 0.3rem 0.7rem;
-      background: #111827;
-      color: #f9fafb !important;
-      font-size: 0.85rem;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
-    }
-
-    /* Hero */
-    .hero {
-      max-width: var(--max-width);
-      margin: 1.4rem auto 0rem;
-      padding: 1.5rem 1.2rem 0.6rem;
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(260px, 2.5fr);
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.18rem 0.65rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(209, 213, 219, 0.9);
-      color: #374151;
-      margin-bottom: 0.7rem;
-    }
-
-    .hero-badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
-    }
-
-    .hero-title {
-      font-size: clamp(2.1rem, 3vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: #020617;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero-title span {
-      background: linear-gradient(120deg, #2f5fff, #6366f1);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-subtitle {
-      font-size: 0.98rem;
-      color: #4b5563;
-      margin-bottom: 1.2rem;
-      max-width: 35rem;
-    }
-
-    .hero-subsubtitle {
-      font-size: 0.88rem;
-      color: #6b7280;
-      margin-bottom: 1.2rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      padding: 0.6rem 1.1rem;
-      border-radius: 999px;
-      border: none;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: #111827;
-      color: #f9fafb;
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.35);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.4);
-    }
-
-    .btn-outline {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(209, 213, 219, 0.9);
-      color: #374151;
-    }
-
-    .btn-outline:hover {
-      background: rgba(17, 24, 39, 0.04);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      font-size: 0.78rem;
-      color: #6b7280;
-    }
-
-    .hero-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.25rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(209, 213, 219, 0.8);
-    }
-
-    .hero-card {
-      background: rgba(15, 23, 42, 0.96);
-      border-radius: 24px;
-      padding: 1.3rem 1.3rem 1.2rem;
-      box-shadow: var(--shadow-soft);
-      color: #e5e7eb;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      opacity: 0.25;
-      background:
-        radial-gradient(circle at 10% 20%, rgba(96, 165, 250, 0.8), transparent 55%),
-        radial-gradient(circle at 90% 80%, rgba(129, 140, 248, 0.9), transparent 55%);
-      filter: blur(4px);
-    }
-
-    .hero-card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-card-title {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #9ca3af;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero-card-main {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 0.8rem;
-      color: #f9fafb;
-    }
-
-    .hero-card-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.6rem;
-      font-size: 0.8rem;
-    }
-
-    .hero-chip {
-      padding: 0.4rem 0.55rem;
-      border-radius: 12px;
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      display: flex;
-      flex-direction: column;
-      gap: 0.08rem;
-    }
-
-    .hero-chip-label {
-      color: #9ca3af;
-      font-size: 0.7rem;
-    }
-
-    .hero-chip-value {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-
-    .hero-card-badge {
-      margin-top: 0.75rem;
-      font-size: 0.78rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.3rem 0.55rem;
-      border-radius: 999px;
-      background: rgba(22, 163, 74, 0.16);
-      color: #bbf7d0;
-      border: 1px solid rgba(34, 197, 94, 0.6);
-    }
-
-    /* Sections */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    section {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 1.2rem 1.2rem 1.4rem;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .section-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: #020617;
-    }
-
-    .section-tagline {
-      font-size: 0.85rem;
-      color: #6b7280;
-    }
-
-    .card {
-      background: var(--bg-alt);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      padding: 1rem 1rem 1rem;
-      box-shadow: var(--shadow-light);
-    }
-
-    .card + .card {
-      margin-top: 0.9rem;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .card-subtitle {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 0.6rem;
-    }
-
-    p {
-      font-size: 0.9rem;
-      color: #374151;
-      margin-bottom: 0.5rem;
-    }
-
-    ul {
-      padding-left: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    li {
-      font-size: 0.9rem;
-      color: #374151;
-      margin-bottom: 0.25rem;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.15rem;
-    }
-
-    .pill {
-      font-size: 0.78rem;
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
-      background: var(--primary-soft);
-      color: #1d4ed8;
-    }
-
-    /* Team */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0.8rem;
-    }
-
-    .team-card {
-      background: var(--bg-alt);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      padding: 0.8rem 0.85rem 0.75rem;
-      font-size: 0.85rem;
-    }
-
-    .team-name {
-      font-weight: 600;
-      color: #111827;
-      margin-bottom: 0.2rem;
-    }
-
-    .team-role {
-      color: #4b5563;
-      font-size: 0.8rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .team-resp-label {
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #9ca3af;
-      margin-bottom: 0.2rem;
-    }
-
-    .team-contact {
-      margin-top: 0.35rem;
-      font-size: 0.8rem;
-      color: #6b7280;
-    }
-
-    /* Admin updates */
-    .admin-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 0.85rem;
-    }
-
-    .admin-list {
-      margin-top: 0.4rem;
-      border-top: 1px dashed var(--border);
-      padding-top: 0.4rem;
-    }
-
-    .admin-item {
-      margin-bottom: 0.5rem;
-    }
-
-    .badge-soft {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.2rem;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      background: rgba(17, 24, 39, 0.04);
-      font-size: 0.76rem;
-      color: #4b5563;
-      margin-bottom: 0.15rem;
-    }
-
-    .badge-soft span {
-      font-weight: 500;
-      color: #111827;
-    }
-
-    /* Flex rows */
-    .two-col {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 1rem;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0.7rem;
-    }
-
-    .feature-card {
-      padding: 0.75rem 0.8rem 0.7rem;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--bg-alt);
-      font-size: 0.85rem;
-    }
-
-    .feature-title {
-      font-weight: 600;
-      margin-bottom: 0.2rem;
-      color: #111827;
-    }
-
-    .feature-tag {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #9ca3af;
-      margin-bottom: 0.1rem;
-    }
-
-    .small-list {
-      padding-left: 1.1rem;
-      margin: 0.1rem 0 0.4rem;
-    }
-
-    .small-list li {
-      font-size: 0.85rem;
-      margin-bottom: 0.18rem;
-    }
-
-    .benefit-list li::marker {
-      color: #22c55e;
-    }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid rgba(209, 213, 219, 0.9);
-      background: rgba(248, 250, 252, 0.95);
-      margin-top: 1rem;
-    }
-
-    .footer-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0.8rem 1.2rem 1.1rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.6rem;
-      font-size: 0.8rem;
-      color: #6b7280;
-    }
-
-    @media (max-width: 880px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero-card {
-        order: -1;
-      }
-
-      header {
-        position: sticky;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav {
-        align-items: flex-start;
-      }
-      .nav-links {
-        width: 100%;
-        justify-content: flex-start;
-      }
-      .two-col {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-    /* SPA tabs helper */
-    .hidden { display: none !important; }
-
-    /* Section visual order */
-    #home { order: 1; }
-    #marketing { order: 2; }
-    #about { order: 3; }
-    #system { order: 4; }
-    #team { order: 5; }
-    #admin { order: 6; }
-    #admin-diaries { order: 7; }
-
-    /* Hero stats strip */
-    .hero-stats {
-      margin-top: 0.9rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 0.6rem;
-    }
-    .stat-card {
-      background: rgba(255,255,255,0.9);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0.6rem 0.7rem;
-      box-shadow: var(--shadow-light);
-      display: flex; align-items: center; gap: 0.45rem;
-      font-size: 0.86rem; color: #111827;
-    }
-    .stat-num { font-weight: 700; color: var(--primary); font-variant-numeric: tabular-nums; }
-
-    /* About grid */
-    .about-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.9rem;
-    }
-    @media (max-width: 880px) { .about-grid { grid-template-columns: minmax(0,1fr); } }
-    .li-icon { width: 14px; height: 14px; margin-right: 6px; vertical-align: -2px; fill: currentColor; color: var(--primary); }
-
-    /* Team avatars */
-    .team-card-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem; }
-    .avatar { width: 36px; height: 36px; border-radius: 999px; background: linear-gradient(135deg,#e0e7ff,#c7d2fe); color:#1e293b; display:flex; align-items:center; justify-content:center; font-weight:700; box-shadow: 0 1px 0 rgba(2,6,23,0.08) inset, 0 6px 12px rgba(2,6,23,0.06); }
-    .team-name { margin: 0; }
-    .team-card p { margin-top: 0.25rem; }
-
-    /* Collapsible details */
-    details { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-alt); padding: 0.55rem 0.7rem; margin-bottom: 0.5rem; }
-    summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.5rem; }
-    summary::-webkit-details-marker { display: none; }
-    .summary-title { font-weight: 600; color: #111827; }
-
-    /* Admin-specific helpers */
-    .gantt-card img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); display: block; }
-    .tab-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.35rem 0 0.6rem; }
-    .pill-tab { padding: 0.25rem 0.6rem; border-radius: 999px; border: 1px solid var(--border); background: #fff; color: #374151; cursor: pointer; font-size: 0.84rem; }
-    .pill-tab.active { background: var(--primary-soft); color: #1d4ed8; border-color: rgba(59,130,246,0.35); }
-    .admin-grid .gantt-card,
-    .admin-grid .minutes-card { grid-column: 1 / -1; }
-
-    /* Section bands for marketing flow */
-    .band { position: relative; }
-    .band::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100vw;
-      top: 0; bottom: 0;
-      background: var(--band-bg, transparent);
-      z-index: -1;
-    }
-    .band--alt { --band-bg: linear-gradient(180deg, #f6f8ff 0%, #ffffff 70%); }
-    .band--dark { --band-bg: linear-gradient(180deg, #0b1220 0%, #0f172a 100%); }
-    .band--dark .section-title { color: #f9fafb; }
-    .band--dark .section-tagline { color: #cbd5e1; }
-    .band--dark p, .band--dark li { color: #d1d5db; }
-    .band--dark a { color: #c7d2fe; }
-    .band--dark .card {
-      background: rgba(255,255,255,0.04);
-      border-color: rgba(148, 163, 184, 0.25);
-      color: #e5e7eb;
-      box-shadow: 0 8px 24px rgba(2,6,23,0.35);
-    }
-    .band--dark .feature-card { background: rgba(255,255,255,0.04); border-color: rgba(148,163,184,0.25); }
-    .band--dark .badge-soft { background: rgba(148, 163, 184, 0.18); color: #e5e7eb; }
-    .band--dark .badge-soft span { color: #fff; }
-    .seamless-top { padding-top: 0.4rem; margin-top: 0; }
-
-    /* Small icons for visual cues */
-    .icon { width: 16px; height: 16px; margin-right: 6px; vertical-align: -2px; fill: currentColor; color: var(--primary); }
-
-    /* Card polish */
-    .card { transition: transform 180ms ease, box-shadow 180ms ease; will-change: transform; }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(15,23,42,0.12); }
-  </style>
-</head>
-<body>
-<div class="page">
-  <!-- NAVBAR -->
-  <header>
-    <nav class="nav">
-      <div class="nav-left">
-        <div class="logo-circle">SL</div>
-        <div class="nav-title">
-          <span>FYP-25-S4-08</span>
-          <span>SpatiaLynk</span>
-        </div>
-      </div>
-      <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#system">System</a>
-        <a href="#admin">Admin</a>
-        <a href="#admin-diaries">Diaries</a>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <!-- HERO / HOME -->
-    <section id="home" class="hero">
-      <div>
-        <div class="hero-badge">
-          <div class="hero-badge-dot"></div>
-          Spatial-Textual Recommendation • Explainable AI
-        </div>
-        <h1 class="hero-title">
-          <span>SpatiaLynk</span> — Multi-Level & Explainable Location Recommendations
-        </h1>
-        <p class="hero-subtitle">
-          SpatiaLynk is a spatial-textual recommender system that helps users discover meaningful places
-          by combining map location, user preferences, and place descriptions, with clear explanations for
-          every recommendation.
-        </p>
-        <p class="hero-subsubtitle">
-          This website introduces our Final Year Project, documents our progress, and serves as a
-          marketing page for our system prototype.
-        </p>
-        <div class="hero-actions">
-          <a href="#marketing" class="btn btn-primary">View System Marketing</a>
-          <a href="#admin" class="btn btn-outline">View Admin Updates</a>
-        </div>
-        <div class="hero-meta">
-          <span>Group FYP-25-S4-08</span>
-          <span>Supervisor: Mr&nbsp;Tian&nbsp;Sion&nbsp;Hui</span>
-          <span>Assessor: Mr&nbsp;Sionggo&nbsp;Japit</span>
-        </div>
-
-        <div class="hero-stats">
-          <div class="stat-card"><span class="stat-num">3</span> Data Types</div>
-          <div class="stat-card"><span class="stat-num">2</span> Model Families</div>
-          <div class="stat-card"><span class="stat-num">3</span> Map Levels</div>
-          <div class="stat-card"><span class="stat-num">5</span> User Roles</div>
-        </div>
-      </div>
-
-      <aside class="hero-card">
-        <div class="hero-card-inner">
-          <div class="hero-card-title">Project Snapshot</div>
-          <div class="hero-card-main">
-            Multi-level spatial-textual recommendations with transparent, template-based explanations.
-          </div>
-          <div class="hero-card-grid">
-            <div class="hero-chip">
-              <div class="hero-chip-label">Core Focus</div>
-              <div class="hero-chip-value">Explainable Recommender</div>
-            </div>
-            <div class="hero-chip">
-              <div class="hero-chip-label">Data Types</div>
-              <div class="hero-chip-value">Spatial + Textual</div>
-            </div>
-            <div class="hero-chip">
-              <div class="hero-chip-label">Users</div>
-              <div class="hero-chip-value">End Users, Admins, Business Partners</div>
-            </div>
-            <div class="hero-chip">
-              <div class="hero-chip-label">Tech Stack</div>
-              <div class="hero-chip-value">React, Python, GNN, XGBoost</div>
-            </div>
-          </div>
-          <div class="hero-card-badge">
-            ● Real-time recommendations &nbsp;•&nbsp; Map-centric UI &nbsp;•&nbsp; Multi-role support
-          </div>
-        </div>
-      </aside>
-    </section>
 
     <!-- ADMIN DIARIES -->
-    <section id="admin-diaries" class="band band--alt hidden">
-      <div class="section-header">
-        <h2 class="section-title">Reflective Diaries</h2>
-        <p class="section-tagline">Weekly reflections by team member</p>
-      </div>
-
-      <div class="card">
-        <div class="tab-row">
-          <a href="#" class="pill-tab" data-member-tab="han">Han Seoyoun</a>
-          <a href="#" class="pill-tab" data-member-tab="nevin">Nevin Sim</a>
-          <a href="#" class="pill-tab" data-member-tab="brian">Yue Jun Brian Tan</a>
-          <a href="#" class="pill-tab" data-member-tab="jiahui">Zhang Jiahui</a>
-          <a href="#" class="pill-tab" data-member-tab="dillon">Tan Jun Rong, Dillon</a>
-        </div>
-
-        <div class="diary-panels">
-          <div class="diary-panel" data-member-panel="han">
-            <h3 class="card-title">Han Seoyoun — Reflections</h3>
-            <p>
-              Focused on aligning architecture with real-time streaming and explainability goals. Biggest challenge
-              was scoping features to deliver a cohesive MVP.
-            </p>
-          </div>
-          <div class="diary-panel hidden" data-member-panel="nevin">
-            <h3 class="card-title">Nevin Sim — Reflections</h3>
-            <p>
-              Streamlined front-end components and documentation. Iterated on interface copy to make features
-              clearer and reduce friction for first-time users.
-            </p>
-          </div>
-          <div class="diary-panel hidden" data-member-panel="brian">
-            <h3 class="card-title">Yue Jun Brian Tan — Reflections</h3>
-            <p>
-              Improved data ingestion and training workflow. Worked on model features that balance textual and
-              spatial signals for better personalisation.
-            </p>
-          </div>
-          <div class="diary-panel hidden" data-member-panel="jiahui">
-            <h3 class="card-title">Zhang Jiahui — Reflections</h3>
-            <p>
-              Prepared datasets and validated data quality. Supported backend integration and wrote notes on
-              system behaviour across modules.
-            </p>
-          </div>
-          <div class="diary-panel hidden" data-member-panel="dillon">
-            <h3 class="card-title">Tan Jun Rong, Dillon — Reflections</h3>
-            <p>
-              Produced system design diagrams and test scenarios. Helped ensure data consistency and reviewed
-              flows to tighten the overall user experience.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- ABOUT US -->
     <section id="about" class="band band--alt">
@@ -845,7 +15,7 @@
         <h3 class="card-title">Problems We See</h3>
         <ul>
           <li><svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M12 3v18"/></svg><strong>Fragmented signals:</strong> Platforms treat spatial vs textual signals separately.</li>
-          <li><svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg><strong>Low explainability:</strong> Users don’t know why places are recommended.</li>
+          <li><svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l4 4 12-12"/></svg><strong>Low explainability:</strong> Users donâ€™t know why places are recommended.</li>
           <li><svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h12M3 17h6"/></svg><strong>One-size-fits-all:</strong> Results ignore map level and user intent.</li>
         </ul>
       </div>
@@ -858,7 +28,7 @@
           <li>Integrate <strong>explainable AI</strong> so that users can see why a place was recommended based on their preferences and past behaviour.</li>
           <li>Support <strong>real-time recommendation</strong> using streaming data from user interactions and spatial queries.</li>
           <li>Provide a <strong>map-based web and mobile interface</strong> that is intuitive for different user roles (end users, system admin, business partners).</li>
-          <li>Evaluate the system’s functional, non-functional, and ML performance, including cold-start and explanation fidelity.</li>
+          <li>Evaluate the systemâ€™s functional, non-functional, and ML performance, including cold-start and explanation fidelity.</li>
         </ul>
       </div>
       </div>
@@ -874,7 +44,7 @@
       <div class="team-grid">
         <div class="team-card">
           <div class="team-name">Han Seoyoun</div>
-          <div class="team-role">Project Leader • Software Engineer • UX/UI Designer • Documentation</div>
+          <div class="team-role">Project Leader â€¢ Software Engineer â€¢ UX/UI Designer â€¢ Documentation</div>
           <div class="team-resp-label">Key Responsibilities</div>
           <p>
             Monitors project progress and delegates tasks. Designs and implements backend components.
@@ -885,7 +55,7 @@
 
         <div class="team-card">
           <div class="team-name">Nevin Sim</div>
-          <div class="team-role">Lead Documentation • Front-End Developer • Software Analyst • Tester</div>
+          <div class="team-role">Lead Documentation â€¢ Front-End Developer â€¢ Software Analyst â€¢ Tester</div>
           <div class="team-resp-label">Key Responsibilities</div>
           <p>
             Manages project documentation. Designs and implements front-end components.
@@ -896,7 +66,7 @@
 
         <div class="team-card">
           <div class="team-name">Yue Jun Brian Tan</div>
-          <div class="team-role">Data Engineer • Algorithm Engineer • Software Engineer & Documentation</div>
+          <div class="team-role">Data Engineer â€¢ Algorithm Engineer â€¢ Software Engineer & Documentation</div>
           <div class="team-resp-label">Key Responsibilities</div>
           <p>
             Handles data acquisition, preparation, and model training. Builds and moderates web components,
@@ -907,7 +77,7 @@
 
         <div class="team-card">
           <div class="team-name">Zhang Jiahui</div>
-          <div class="team-role">Data Engineer • Software Engineer • Documentation</div>
+          <div class="team-role">Data Engineer â€¢ Software Engineer â€¢ Documentation</div>
           <div class="team-resp-label">Key Responsibilities</div>
           <p>
             Prepares and manages project datasets. Supports backend and application development and contributes to
@@ -918,7 +88,7 @@
 
         <div class="team-card">
           <div class="team-name">Tan Jun Rong, Dillon</div>
-          <div class="team-role">System Designer • Software Engineer • Software Tester • Documentation</div>
+          <div class="team-role">System Designer â€¢ Software Engineer â€¢ Software Tester â€¢ Documentation</div>
           <div class="team-resp-label">Key Responsibilities</div>
           <p>
             Creates system design diagrams. Supports backend development and testing. Handles data processing,
@@ -951,7 +121,7 @@
           <div class="admin-list">
             <div class="admin-item">
               <div class="badge-soft">
-                <span>MM-01</span> • Week 3 Progress Meeting
+                <span>MM-01</span> â€¢ Week 3 Progress Meeting
               </div>
               <p><strong>Date:</strong> [DD/MM/YYYY] &nbsp; | &nbsp; <strong>Attendees:</strong> All team members</p>
               <p><strong>Summary:</strong> Discussed data model design, confirmed roles for data pipeline, and planned first prototype of map UI.</p>
@@ -959,7 +129,7 @@
             </div>
             <div class="admin-item">
               <div class="badge-soft">
-                <span>MM-02</span> • Supervisor Consultation
+                <span>MM-02</span> â€¢ Supervisor Consultation
               </div>
               <p><strong>Date:</strong> [DD/MM/YYYY] &nbsp; | &nbsp; <strong>Attendees:</strong> Team + Supervisor</p>
               <p><strong>Summary:</strong> Reviewed architecture design and clarified explainability approach for recommendations.</p>
@@ -1004,14 +174,14 @@
           </p>
           <div class="admin-list">
             <div class="admin-item">
-              <div class="badge-soft"><span>Han Seoyoun</span> • Reflection Sample</div>
+              <div class="badge-soft"><span>Han Seoyoun</span> â€¢ Reflection Sample</div>
               <p>
                 This week, I focused on clarifying the system architecture and aligning the backend design with our
                 real-time streaming requirements. The main challenge was balancing scalability with our FYP scope.
               </p>
             </div>
             <div class="admin-item">
-              <div class="badge-soft"><span>Dillon</span> • Reflection Sample</div>
+              <div class="badge-soft"><span>Dillon</span> â€¢ Reflection Sample</div>
               <p>
                 I spent time designing the system diagrams and understanding how the graph database interacts with
                 the spatial database. Translating a complex architecture into clear diagrams was challenging but useful.
@@ -1081,12 +251,12 @@
         <ul class="small-list">
           <li>
             <strong>Multi-Level Spatial Recommendations:</strong>
-            Adapts results across different map levels (region → district → specific POIs).
+            Adapts results across different map levels (region â†’ district â†’ specific POIs).
           </li>
           <li>
             <strong>Explainable AI:</strong>
             Every recommendation is accompanied by a clear, user-friendly explanation template
-            (e.g. “Recommended because you liked quiet cafes nearby and often search in this district”).
+            (e.g. â€œRecommended because you liked quiet cafes nearby and often search in this districtâ€).
           </li>
           <li>
             <strong>Hybrid Spatial + Textual Intelligence:</strong>
@@ -1134,8 +304,8 @@
           <div class="feature-tag">Premium Feature</div>
           <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a2 2 0 012 2v18l-8-4-8 4V4a2 2 0 012-2z"/></svg>Itinerary & Saved Collections</div>
           <p>
-            Premium users can generate day itineraries and save recommended POIs into custom folders (e.g. “Weekend
-            Hangouts”, “Study Spots”), improving planning efficiency.
+            Premium users can generate day itineraries and save recommended POIs into custom folders (e.g. â€œWeekend
+            Hangoutsâ€, â€œStudy Spotsâ€), improving planning efficiency.
           </p>
         </div>
       </div>
@@ -1146,7 +316,7 @@
           <ul class="small-list benefit-list">
             <li>
               <strong>Time Savings:</strong> Reduces time spent searching for suitable places by combining filters,
-              preferences, and location into a single system (estimated 30–50% faster than manual search).
+              preferences, and location into a single system (estimated 30â€“50% faster than manual search).
             </li>
             <li>
               <strong>Higher Decision Confidence:</strong> Explanations help users trust the system and understand why
@@ -1185,34 +355,12 @@
         </ul>
       </div>
     </section>
-    <!-- ADMIN DIARIES (dynamic from CSV) -->
-    <section id="admin-diaries" class="band band--alt hidden">
-      <div class="section-header">
-        <h2 class="section-title">Reflective Diaries</h2>
-        <p class="section-tagline">Weekly reflections by team member</p>
-      </div>
-      <div class="card">
-        <div class="tab-row" id="diary-tabs"></div>
-        <div class="diary-panels" id="diary-panels"></div>
-      </div>
-    </section>
-    <!-- ADMIN DIARIES (dynamic from CSV) -->
-    <section id="admin-diaries" class="band band--alt hidden">
-      <div class="section-header">
-        <h2 class="section-title">Reflective Diaries</h2>
-        <p class="section-tagline">Weekly reflections by team member</p>
-      </div>
-      <div class="card">
-        <div class="tab-row" id="diary-tabs"></div>
-        <div class="diary-panels" id="diary-panels"></div>
-      </div>
-    </section>
   </main>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <div>© FYP-25-S4-08 · SpatiaLynk · University of Wollongong @ SIM</div>
+      <div>Â© FYP-25-S4-08 Â· SpatiaLynk Â· University of Wollongong @ SIM</div>
       <div>Contact: <a href="mailto:han024@mymail.sim.edu.sg">Project Team Email (via Leader)</a></div>
     </div>
   </footer>
@@ -1220,7 +368,7 @@
   <script>
     (function() {
       const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
-      const sectionIds = ['home','about','team','system','admin','admin-diaries','marketing'];
+      const sectionIds = ['home','about','team','system','admin','marketing'];
       const sections = new Map(sectionIds.map(id => [id, document.getElementById(id)]));
 
       function activate(id) {
@@ -1317,7 +465,7 @@
           const item=document.createElement('div'); item.className='admin-item';
           const badge=document.createElement('div'); badge.className='badge-soft';
           const code=document.createElement('span'); code.textContent=r.id||''; badge.appendChild(code);
-          badge.appendChild(document.createTextNode(' — ' + (r.title||'')));
+          badge.appendChild(document.createTextNode(' â€” ' + (r.title||'')));
           item.appendChild(badge);
           const p1=document.createElement('p'); p1.innerHTML = `<strong>Date:</strong> ${r.date||''} &nbsp; | &nbsp; <strong>Attendees:</strong> ${(r.attendees||'')}`; item.appendChild(p1);
           if(r.summary){ const p2=document.createElement('p'); p2.innerHTML = `<strong>Summary:</strong> ${r.summary}`; item.appendChild(p2); }
@@ -1328,7 +476,7 @@
 
       function renderDiaries(rows){
         if(!rows) return;
-        const container = document.getElementById('admin-diaries'); if(!container) return;
+        const container = document.getElementById(); if(!container) return;
         const tabs = container.querySelector('#diary-tabs'); const panels = container.querySelector('#diary-panels');
         if(!tabs || !panels) return;
         tabs.innerHTML=''; panels.innerHTML='';
@@ -1340,7 +488,7 @@
         });
         // Build tabs
         byKey.forEach((val,key)=>{
-          const a=document.createElement('a'); a.href="#admin-diaries"; a.className='pill-tab'; a.setAttribute('data-member-tab', key); a.textContent=val.name; tabs.appendChild(a);
+          const a=document.createElement('button'); a.type='button'; a.className='pill-tab'; a.setAttribute('data-member-tab', key); a.textContent=val.name; tabs.appendChild(a);
           const panel=document.createElement('div'); panel.className='diary-panel hidden'; panel.setAttribute('data-member-panel', key);
           const h=document.createElement('h3'); h.className='card-title'; h.textContent = val.name + ' — Reflections'; panel.appendChild(h);
           val.entries.forEach(e=>{ const p=document.createElement('p'); p.innerHTML = (e.week?`<strong>${e.week}:</strong> `:'') + e.text; panel.appendChild(p); });
@@ -1353,22 +501,16 @@
           tabEls.forEach(btn=>btn.classList.toggle('active', btn.getAttribute('data-member-tab')===member));
           panelEls.forEach(p=>p.classList.toggle('hidden', p.getAttribute('data-member-panel')!==member));
         }
-        tabEls.forEach(btn=>btn.addEventListener('click', e=>{
-          e.preventDefault();
-          e.stopPropagation();
-          const member = btn.getAttribute('data-member-tab');
-          if (location.hash !== '#admin-diaries') {
-            location.hash = 'admin-diaries';
-          }
-          show(member);
-        }));
-        if(tabEls.length) show(tabEls[0].getAttribute('data-member-tab'));
+        tabEls.forEach(btn=>btn.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); const member = btn.getAttribute('data-member-tab'); show(member); }));
+        // Show all member sections on the same page and hide tabs
+        if (tabs) { tabs.style.display = 'none'; }
+        panelEls.forEach(p=>p.classList.remove('hidden'));
       }
 
       async function loadWeeklyContent(){
         const minutes = await fetchCSV('data/meeting-minutes.csv');
         renderMinutes(minutes);
-        const diaries = await fetchCSV('data/diaries.csv');
+        const diaries = await fetchCSV('data/diaries.csv?v=' + Date.now());
         renderDiaries(diaries);
       }
 
@@ -1379,3 +521,11 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
