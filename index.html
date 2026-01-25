@@ -1302,21 +1302,29 @@
             const p1=document.createElement('p'); p1.innerHTML = `<strong>Date:</strong> ${r.date||''} &nbsp; | &nbsp; <strong>Attendees:</strong> ${(r.attendees||'')}`; item.appendChild(p1);
             // Extract "Discussion Points:" from the summary text (if present) and render as its own paragraph.
             if(r.summary){
-              const rawSummary = String(r.summary);
-              const dpRegex = /Discussion\s*Points:\s*/i;
-              const nextLabelRegex = /(?:Milestone\s*Tracking\s*Notes:|Agenda\s*Summary:)/i;
+              const rawSummary = String(r.summary).trim();
               let discussion = '';
               let cleanedSummary = rawSummary;
-              const m = dpRegex.exec(rawSummary);
-              if(m){
-                const dpStart = m.index + m[0].length;
-                const tail = rawSummary.slice(dpStart);
-                const nextIdx = tail.search(nextLabelRegex);
-                discussion = (nextIdx >= 0 ? tail.slice(0, nextIdx) : tail).trim();
-                // Remove the extracted Discussion Points segment from the displayed summary
-                cleanedSummary = rawSummary.slice(0, m.index) + (nextIdx >= 0 ? tail.slice(nextIdx) : '');
-                cleanedSummary = cleanedSummary.replace(/\s{2,}/g, ' ').trim();
+
+              // Prefer dedicated column if available
+              if(r.discussionpoints && String(r.discussionpoints).trim().length){
+                discussion = String(r.discussionpoints).trim();
+              } else {
+                // Fallback: extract from inline text inside summary
+                const dpRegex = /Discussion\s*Points:\s*/i;
+                const nextLabelRegex = /(?:Milestone\s*Tracking\s*Notes:|Agenda\s*Summary:)/i;
+                const m = dpRegex.exec(rawSummary);
+                if(m){
+                  const dpStart = m.index + m[0].length;
+                  const tail = rawSummary.slice(dpStart);
+                  const nextIdx = tail.search(nextLabelRegex);
+                  discussion = (nextIdx >= 0 ? tail.slice(0, nextIdx) : tail).trim();
+                  // Remove the extracted Discussion Points segment from the displayed summary
+                  cleanedSummary = rawSummary.slice(0, m.index) + (nextIdx >= 0 ? tail.slice(nextIdx) : '');
+                  cleanedSummary = cleanedSummary.replace(/\s{2,}/g, ' ').trim();
+                }
               }
+
               // Render Summary (remaining text)
               const p2=document.createElement('p');
               p2.innerHTML = `<strong>Summary:</strong> ${cleanedSummary}`;
