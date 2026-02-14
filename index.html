@@ -144,6 +144,33 @@
       align-items: center;
     }
 
+    .hero-main {
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 1fr);
+      gap: 1.2rem;
+      align-items: start;
+      grid-column: 1 / -1; /* span full hero width */
+    }
+
+    .hero-video-frame {
+      border-radius: var(--radius-lg);
+      background: #000;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow-light);
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+
+    .hero-video-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -778,35 +805,38 @@
   <main>
     <!-- HERO / HOME -->
     <section id="home" class="hero">
-      <div>
-        <div class="hero-badge">
-          <div class="hero-badge-dot"></div>
-          Spatial-Textual Recommendation &bull; Explainable AI
+      <div class="hero-main">
+        <div>
+          <div class="hero-badge">
+            <div class="hero-badge-dot"></div>
+            Spatial-Textual Recommendation &bull; Explainable AI
+          </div>
+          <div class="hero-title-row">
+            <h1 class="hero-title">
+              <span>SpatiaLynk</span> &mdash; Multi-Level &amp; Explainable Location Recommendations
+            </h1>
+          </div>
+          <p class="hero-subtitle">
+            SpatiaLynk is a recommender application that helps you discover meaningful places
+            by taking into your location and preferences, with clear explanations for
+            your every recommendation.
+          </p>
+          <p class="hero-subsubtitle">
+            SpatiaLynk allows you to easily get quick recommendations that you are bound to enjoy!
+          </p>
         </div>
-        <div class="hero-title-row">
-          <h1 class="hero-title">
-            <span>SpatiaLynk</span> &mdash; Multi-Level &amp; Explainable Location Recommendations
-          </h1>
+        <div class="hero-video-frame">
+          <video controls autoplay muted loop playsinline>
+            <source src="assets/marketing.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
-        <p class="hero-subtitle">
-          SpatiaLynk is a recommender application that helps you discover meaningful places
-          by taking into your location and preferences, with clear explanations for
-          your every recommendation.
-        </p>
-        <p class="hero-subsubtitle">
-          SpatiaLynk allows you to easily get quick recommendations that you are bound to enjoy!
-        </p>
-        
-
-        
-
-        
       </div>
 
       <aside class="hero-card">
         <div class="hero-card-inner">
           <div class="hero-card-title">Key Features</div>
-          <div class="hero-card-main">Four things you'll love about SpatiaLynk.</div>
+          <div class="hero-card-main">Three things you'll love about SpatiaLynk.</div>
           <div class="hero-key-images">
             <img class="hero-key-img" src="assets/hero-dashboard-1.png" alt="App preview 1" loading="lazy" decoding="async" onerror="this.style.display='none'">
             <img class="hero-key-img" src="assets/hero-dashboard-2.png" alt="App preview 2" loading="lazy" decoding="async" onerror="this.style.display='none'">
@@ -838,13 +868,7 @@
               </p>
             </div>
 
-            <div class="feature-card">
-              <div class="feature-tag">Premium Feature</div>
-              <div class="feature-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a2 2 0 012 2v18l-8-4-8 4V4a2 2 0 012-2z"/></svg>Itinerary & Saved Collections</div>
-              <p>
-                Premium users can generate day itineraries and save all recommendations into custom folders, improving your daily planning efficiency.
-              </p>
-            </div>
+
           </div>
         </div>
       </aside>
@@ -861,10 +885,7 @@
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a6 6 0 100 12 6 6 0 000-12z"/></svg>
               <strong>Free Members:</strong> Get fuss-free personalised and explainable results using your preferences. 
             </li>
-            <li>
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"/></svg>
-              <strong>Premium Members:</strong> Unlock itinerary generation, saved collections, and priority ranking.
-            </li>
+
             <li>
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H4zM4 20h16"/></svg>
               <strong>Business Partners:</strong> Highlight your business to our users and update your latest information.
