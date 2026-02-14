@@ -1202,6 +1202,11 @@
         if(prefersReducedMotion){ el.classList.add('is-visible'); return; }
         if(srObserver) srObserver.observe(el);
       }
+
+      function revealNowInSection(sectionEl){
+        if(!sectionEl) return;
+        sectionEl.querySelectorAll('.reveal-up').forEach(el=> el.classList.add('is-visible'));
+      }
       function setupScrollReveal(){
         if(prefersReducedMotion){
           document.querySelectorAll('.reveal-up').forEach(el=>el.classList.add('is-visible'));
@@ -1259,6 +1264,8 @@
           if (group.has(key)) el.classList.remove('hidden');
           else el.classList.add('hidden');
         });
+        // Ensure visible content is revealed immediately (no scroll needed)
+        revealNowInSection(sections.get(normalized));
         // Admin cleanup removed
         navLinks.forEach(a => {
           const match = a.getAttribute('href').slice(1) === normalized;
@@ -1352,6 +1359,8 @@
             if(r.actions){ const p3=document.createElement('p'); p3.innerHTML = `<strong>Action Items:</strong> ${(r.actions||'')}`; item.appendChild(p3); }
             list.appendChild(item);
           });
+          // After injecting items, reveal them immediately in the Admin section
+          revealNowInSection(admin);
         }
 
       function renderDiariesByMember(rows){
